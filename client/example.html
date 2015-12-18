@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Topbar</title>
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="css/jqm-1.4.5.css">
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- scripts -->
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+  <script src="js/jquery.mobile.dynamic.popup.js"></script>
+  <script src="js/main.js"></script>  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="openLoginPopup()">
+  <!-- ///////////////////////////////////// PAGE 1 : ticket ///////////////////////////////////// -->
+  <!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
+  <div data-role="page" id="page1" data-theme="a" data-content-theme="a">
+    <!-- ################################### HEADER ################################### -->
+    <!-- ############################################################################## -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <img id="logo" src="img/logo.png">
+      <a href="#notifications" data-rel="popup" data-position-to="window" id="notification" class="ui-btn ui-shadow ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-b ui-btn-inline ui-btn-right"></a>
+      <span id="notif-count">12</span>
+      <div id="ticket-header" class="ui-grid-a">
+        <div class="ui-block-a">
+          <h3>Ticket</h3>
+        </div>
+        <div class="ui-block-b">
+          <h3>Servi</h3>
+        </div>
+      </div>
+    </div>
+    <!-- ################################### CONTENT ################################## -->
+    <!-- ############################################################################## -->
+    <div id="main-page" data-role="main" class="ui-content">
+      <div id="ticket-content" class="ui-grid-a">
+        <!-- ###### TICKET ###### -->
+        <div class="ui-block-a">
+          <ul class="listview" data-role="listview" data-inset="true">
+            <li data-icon="false">
+              <a>
+                <h3>TGV</h3>
+                <span class="ui-li-count">1</span>
+                <p class="p-ticket"><img id="cash-icon" src="img/cash.png"><strong>4</strong></p>
+                <p class="p-ticket"><img id="user-icon" src="img/user.png"><strong>1</strong></p>
+                <p class="p-ticket" id="time">18:24</p>
+              </a>
+              <button onclick='openReturn("#ticket-retour-main")' class="btn-return" data-role="none">Retour</button>
+            </li>
+            <li data-icon="false">
+              <a>
+                <h3>JACK DANIELS</h3>
+                <span class="ui-li-count">1</span>
+                <p class="p-ticket"><img id="cash-icon" src="img/cash.png"><strong>4</strong></p>
+                <p class="p-ticket"><img id="user-icon" src="img/user.png"><strong>1</strong></p>
+                <p class="p-ticket" id="time">18:24</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- ###### SERVI ###### -->
+        <div class="ui-block-b">
+          <ul class="listview" data-role="listview" data-inset="true">
+            <li data-icon="false">
+              <a href="#">
+                <h3 class="title-servi">JACK DANIELS</h3>
+                <p class="p-ticket"><img id="user-icon" src="img/user.png"><strong>1</strong></p>
+                <p class="p-ticket" id="time">18:24</p>
+              </a>
+            </li>
+            <li data-icon="false">
+              <a href="#" style="color:#D9534F">
+                <h3 class="title-servi-with-retour">PASTIS 51</h3>
+                <p class="p-ticket"><img id="user-icon" src="img/user-red.png"><strong>1</strong></p>
+                <p class="p-ticket" id="time">18:24</p>
+              </a>
+              <button onclick='openReturn("#servi-retour-main")' class="btn-return" data-role="none">Retour</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- ################################### FOOTER ################################### -->
+    <!-- ############################################################################## -->
+      <!--       <a id="user-button" href="#login-main" data-rel="popup" class="ui-shadow ui-btn-right" data-transition="slidedown" data-position-to="window" data-mini="true">CELIA</a>
+    --> 
+    <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" >
+      <div class="ui-grid-a full-width-buttons">
+        <div class="ui-block-a"><a href="#login-main" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-icon-user ui-btn-icon-left" data-position-to="window">SARAH</a></div>
+        <div class="ui-block-b"><a href="#functions" data-transition="slide" class="ui-btn ui-shadow ui-corner-all ui-icon-star ui-btn-icon-left">Fonctions</a></div>
+      </div>
+      <h6 id="copyright">&copy; 2016 TopBar</h6>
+    </div>
+    <!-- ################################### POPUPS ################################### -->
+    <!-- ############################################################################## -->
+    <!-- ################################### LOGIN POPUP ################################### -->
+    <div id="login-main" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-history="false">
+      <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+      <div data-role="header" data-theme="a">
+        <h1></h1>
+      </div>
+      <div class="ui-content" role="main">
+      </div>
+    </div>
+    <!-- deuxieme page login -->
+    <div id="login-next" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-split-icon="gear"> 
+      <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+      <div data-role="header" data-theme="a">
+        <h1>Connectez vous</h1>
+      </div>
+      <div class="ui-content" role="main">
+        <input type="password" name="name" id="login-input" />
+        <div class="ui-grid-b">
+          <div class="ui-block-a"><input id="1" type="button" value="1"></div>
+          <div class="ui-block-b"><input type="button" value="2"></div>
+          <div class="ui-block-c"><input type="button" value="3"></div>
+          <div class="ui-block-a"><input type="button" value="4"></div>
+          <div class="ui-block-b"><input type="button" value="5"></div>
+          <div class="ui-block-c"><input type="button" value="6"></div>
+          <div class="ui-block-a"><input type="button" value="7"></div>
+          <div class="ui-block-b"><input type="button" value="8"></div>
+          <div class="ui-block-c"><input type="button" value="9"></div>
+        </div>
+        <div class="ui-grid-solo">
+          <div class="ui-block-a"><input type="button" value="0"></div>
+        </div>
+        <div class="ui-grid-a">
+          <div class="ui-block-a"><input type="reset" value="Corriger"></div>
+          <div class="ui-block-b"><a class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-left" id="valider" href="#" onclick="showLoginError()">Valider</a> </div>
+        </div>
+      </div>
+    </div>
+    <!-- ################################### NOTIFICATIONS POPUP ################################### -->
+    <div id="notifications" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true">
+      <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+      <div data-role="header" data-theme="a">
+        <h1>Notifications</h1>
+      </div>
+      <div class="ui-content" role="main">
+        <ul data-role="listview" data-inset="true">
+          <li data-icon="delete"><a href="#">notification exemple</a></li>
+          <li data-icon="delete"><a href="#">notification exemple</a></li>
+          <li data-icon="delete"><a href="#">notification exemple</a></li>
+          <li data-icon="delete"><a href="#">notification exemple</a></li>
+          <li data-icon="delete"><a href="#">notification exemple</a></li>
+          <li data-icon="delete"><a href="#">notification exemple</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- ################################### TICKET RETOUR POPUP ################################### -->
+    <div id="ticket-retour-main" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-split-icon="gear">
+      <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+      <div data-role="header" data-theme="a">
+        <h1>Retour</h1>
+      </div>
+      <div class="ui-content" role="main">
+        <ul data-role="listview" data-inset="true" data-count-theme="b">
+          <li data-icon="false"><a href="#" onclick='processReturn("gin_tonic")'>Gin Tonic<span class="ui-li-count">1</span></a></li>
+          <li data-icon="false"><a href="#" onclick='processReturn("jack_daniels")'>Jack Daniels<span class="ui-li-count">1</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- deuxieme page -->
+    <div id="ticket-retour-next" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-split-icon="gear">
+      <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+      <div data-role="header" data-theme="a">
+        <h1>Retour</h1>
+      </div>
+      <div class="ui-content" role="main">
+        <select name="select-choice-a" id="select-choice-a" data-native-menu="false" onchange="createDatatables(this.value);">
+          <option>Motif retour :</option>
+          <option value="plus-dispo">Plus disponible</option>
+          <option value="divers">Divers</option>
+        </select>
+        <input name="text-basic" id="servi-retour-motif" type="text" value="">
+        <a class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-left" href="#">Valider</a>
+      </div>
+    </div>
+    <!-- ################################### SERVI RETOUR POPUP ################################### -->
+    <div id="servi-retour-main" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-split-icon="gear">
+      <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+      <div data-role="header" data-theme="a">
+        <h1>Retour</h1>
+      </div>
+      <div class="ui-content" role="main">
+        <select name="select-choice-a" id="select-choice-a" data-native-menu="false" onchange="createDatatables(this.value);">
+          <option>Motif retour :</option>
+          <option value="dose">Probleme dose</option>
+          <option value="pas-bon">Pas bon</option>
+          <option value="client">Erreur client</option>
+          <option value="divers">Divers</option>
+        </select>
+        <input name="text-basic" id="servi-retour-motif" type="text" value="">
+        <a class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-left" href="#">Valider</a>
+      </div>
+    </div>
+  </div>
+  <!-- /page 1 -->
+  <!-- ################################### PAGE 2 : FONCTIONS ################################### -->
+  <!-- ########################################################################################## -->
+  <div data-role="page" id="functions">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#page1">Retour</a>
+      <h1>Fonctions</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <a href="#list-tickets" class="ui-btn ui-shadow ui-corner-all" style="margin-top:5px">Liste tickets annules</a>
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="histo-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Historiques</h3>
+          <ul data-role="listview">
+            <li><a href="#error" data-rel="popup" data-transition="pop">Historique journalier</a></li>
+            <!-- <li><a id="histo-gen" href="#histo-gen" onclick='createDatatables(this.id)'>Historique caisse</a></li> -->
+            <li><a href="#histo-gen">Historique caisse</a></li>
+            <li><a href="#">Historique servi</a></li>
+            <li><a href="#">Historique alerte</a></li>
+            <li><a href="#">Historique retour</a></li>
+            <li><a href="#">Historique notification</a></li>
+            <li><a href="#error" data-rel="popup" data-transition="pop">Historique nettoyage</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /historiques -->
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="param-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Parametres</h3>
+          <ul data-role="listview">
+            <li><a href="#param-etab">Parametres etablissement</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /parametres -->
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="gestion-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Gestion</h3>
+          <ul data-role="listview">
+            <li><a href="#calibration">Calibration</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /gestion -->
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="gestion-art-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Gestion article</h3>
+          <ul data-role="listview">
+            <li><a href="#ajout-art">Ajouter article</a></li>
+            <li><a href="#gestion-art">Supprimer / modifier article</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /gestion article -->
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="gestion-interface-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Gestion interface</h3>
+          <ul data-role="listview">
+            <li><a href="#ajout-interface">Ajouter interface</a></li>
+            <li><a href="#gestion-interface">Gestion interface</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /gestion interface -->
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="gestion-utilisateur-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Gestion utilisateur</h3>
+          <ul data-role="listview">
+            <li><a href="#ajout-user">Ajouter utilisateur</a></li>
+            <li><a href="#modifier-user">Supprimer / modifier utilisateur</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /gestion utilisateur -->
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="gestion-materiel-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Materiel</h3>
+          <ul data-role="listview">
+            <li><a href="#gestion-materiel">Gestion materiel</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /gestion materiel -->
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="nettoyage-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Nettoyage</h3>
+          <ul data-role="listview">
+            <li><a href="#activer-nettoyage">Activer / desactiver nettoyage</a></li>
+            <li><a href="#actuel-nettoyage">Nettoyage actuel</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /nettoyage -->
+    </div>
+    <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" >
+      <h6 id="copyright">&copy; 2016 TopBar</h6>
+    </div>
+    <!-- ################################### ERROR POPUP ################################### -->
+    <div id="error" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-history="false">
+      <h1 style="text-align:center">NON AUTORISE</h1>
+    </div>
+  </div>
+  <!-- ################################### LISTE TICKETS ANNNULES ######################## -->
+  <!-- ################################################################################### -->
+  <div data-role="page" id="list-tickets" data-theme="a">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+      <h1>Liste tickets annules</h1>
+    </div>
+    <div data-role="content">
+      <table data-role="table" id="movie-table" data-mode="reflow" class="ui-responsive">
+        <thead>
+          <tr>
+            <th data-priority="1">Ticket</th>
+            <th data-priority="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>
+              <div class="ticket">
+                <p>HEINEKEN</p>
+                <p>Utilisateur : 1</p>
+                <p>18h12</p>
+              </div>
+            </th>
+            <td><a href="#" class="ui-btn ui-shadow ui-corner-all">Activer</a></td>
+          </tr>
+          <tr>
+            <th>
+              <div class="ticket">
+                <p>HEINEKEN</p>
+                <p>Utilisateur : 1</p>
+                <p>18h12</p>
+              </div>
+            </th>
+            <td><a href="#" class="ui-btn ui-shadow ui-corner-all">Activer</a></td>
+          </tr>
+          <tr>
+            <th>
+              <div class="ticket">
+                <p>HEINEKEN</p>
+                <p>Utilisateur : 1</p>
+                <p>18h12</p>
+              </div>
+            </th>
+            <td><a href="#" class="ui-btn ui-shadow ui-corner-all">Activer</a></td>
+          </tr>
+          <tr>
+            <th>
+              <div class="ticket">
+                <p>HEINEKEN</p>
+                <p>Utilisateur : 1</p>
+                <p>18h12</p>
+              </div>
+            </th>
+            <td><a href="#" class="ui-btn ui-shadow ui-corner-all">Activer</a></td>
+          </tr>
+          <tr>
+            <th>
+              <div class="ticket">
+                <p>HEINEKEN</p>
+                <p>Utilisateur : 1</p>
+                <p>18h12</p>
+              </div>
+            </th>
+            <td><a href="#" class="ui-btn ui-shadow ui-corner-all">Activer</a></td>
+          </tr>
+          <tr>
+            <th>
+              <div class="ticket">
+                <p>HEINEKEN</p>
+                <p>Utilisateur : 1</p>
+                <p>18h12</p>
+              </div>
+            </th>
+            <td><a href="#" class="ui-btn ui-shadow ui-corner-all">Activer</a></td>
+          </tr>
+          <tr>
+            <th>
+              <div class="ticket">
+                <p>HEINEKEN</p>
+                <p>Utilisateur : 1</p>
+                <p>18h12</p>
+              </div>
+            </th>
+            <td><a href="#" class="ui-btn ui-shadow ui-corner-all">Activer</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- ################################### HISTORIQUES ################################### -->
+<!-- ################################################################################### -->
+<div data-role="page" id="histo-gen" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>
+      <div id="histo-title"></div>
+    </h1>
+  </div>
+  <div data-role="content">
+    <div class="ui-field-contain">
+      <select name="select-choice-a" id="select-choice-a" data-native-menu="false" onchange="createDatatables(this.value);">
+        <option>Selectionner date :</option>
+        <option value="01-octobre-2015">01-octobre-2015</option>
+        <option value="02-octobre-2015">02-octobre-2015</option>
+        <option value="03-octobre-2015">03-octobre-2015</option>
+      </select>
+    </div>
+    <table id="histo" class="dt-body-center" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>nom</th>
+          <th>heure</th>
+          <th>numero</th>
+          <th>serveur</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <!-- /content -->
+  <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" >
+    <div class="ui-grid-solo">
+      <div class="ui-block-a">
+        <a id="btn-stats" href="#stats" data-rel="popup" data-position-to="window" data-transition="slide" class="ui-btn ui-shadow ui-corner-all ui-icon-star ui-btn-icon-left">Statistiques journee</a>
+      </div>
+    </div>
+    <h6 id="copyright">&copy; 2016 TopBar</h6>
+  </div>
+  <!-- POPUP STATISTIQUES -->
+  <div id="stats" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-split-icon="gear">
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+    <div data-role="header" data-theme="a">
+      <h1>Statistiques</h1>
+    </div>
+    <div class="ui-content" role="main">
+      <table data-role="table" id="stats-table" class="ui-responsive">
+        <thead>
+          <tr>
+            <th data-priority="1">NOM</th>
+            <th data-priority="2">NOMBRE D'OCCURENCES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>BOCK HEINEKEN</th>
+            <td>3</td>
+          </tr>
+          <tr>
+            <th>GIN TONIC</th>
+            <td>8</td>
+          </tr>
+          <tr>
+            <th>BOCK HEINEKEN</th>
+            <td>3</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- ################################### PARAMETRES #################################### -->
+<!-- ################################################################################### -->
+<!-- ################################### parametres etablissement ###################### -->
+<div data-role="page" id="param-etab">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Parametres etablissement</h1>
+  </div>
+  <div id="form-etab" role="main" class="ui-content">
+    <form>
+      <h1 class="ui-bar ui-bar-a ui-corner-all">Parametres generaux</h1>
+      <div id="form-group" class="ui-body ui-body-a ui-corner-all">
+        <label for="text-basic">Nom etablissement:</label>
+        <input name="text-basic" id="nom-etablissement" type="text" value="">
+        <label for="slider-fill">Temps passage en alerte (min):</label>
+        <input name="slider-fill" id="tps-alert-1" type="range" min="1" max="60" step="1" value="30" data-highlight="true">
+      </div>
+      <h1 class="ui-bar ui-bar-a ui-corner-all">Alerte mail</h1>
+      <div id="form-group" class="ui-body ui-body-a ui-corner-all">
+        <select name="slider2" id="mail-alert" data-role="slider">
+          <option value="non">Non</option>
+          <option value="oui">Oui</option>
+        </select>
+        <label for="text-basic">Mail d'alerte:</label>
+        <input disabled="" name="text-basic" id="mail-alerte" type="text" value="">
+        <label for="slider-fill">Temps alerte mail (min):</label>
+        <input disabled="" name="slider-fill" id="tps-alert-4" type="range" min="1" max="60" step="1" value="30" data-highlight="true">
+      </div>
+      <h1 class="ui-bar ui-bar-a ui-corner-all"> Alerte telephone</h1>
+      <div id="form-group" class="ui-body ui-body-a ui-corner-all">
+        <select name="slider2" id="phone-alert" data-role="slider">
+          <option value="non">Non</option>
+          <option value="oui">Oui</option>
+        </select>
+        <label for="text-basic">Telephone alerte n°1:</label>
+        <input disabled="" name="text-basic" id="tel-1" type="text" value="">
+        <label for="slider-fill">Temps alerte SMS 1 (min):</label>
+        <input disabled="" name="slider-fill" id="tps-alert-2" type="range" min="1" max="60" step="1" value="30" data-highlight="true">
+        <label for="text-basic">Telephone alerte n°2:</label>
+        <input disabled="" name="text-basic" id="tel-2" type="text" value="">
+        <label for="slider-fill">Temps alerte SMS 2 (min):</label>
+        <input disabled="" name="slider-fill" id="tps-alert-3" type="range" min="1" max="60" step="1" value="30" data-highlight="true">
+        <label for="slider2">Mode fiesta:</label>
+        <select name="slider2" id="fiesta" data-role="slider">
+          <option value="non">Non</option>
+          <option value="oui">Oui</option>
+        </select>
+        <label for="slider2">Passage en alerte:</label>
+        <select name="slider2" id="alerte" data-role="slider">
+          <option value="non">Non</option>
+          <option value="oui">Oui</option>
+        </select>
+      </div>      
+    </form>
+  </div>
+</div>
+<!-- ################################### GESTION ####################################### -->
+<!-- ################################################################################### -->
+<!-- ################################### calibration ################################### -->
+<div data-role="page" id="calibration" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Calibration</h1>
+  </div>
+  <div data-role="content">
+    <table data-role="table" id="calibration-table" data-mode="reflow" class="ui-responsive">
+      <thead>
+        <tr>
+          <th data-priority="1">NUMERO</th>
+          <th data-priority="2">MAC</th>
+          <th data-priority="3">NOM</th>
+          <th data-priority="4">TYPE</th>
+          <th data-priority="5">SELECTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle heineken</td>
+          <td>Tourelle</td>
+          <td><input type="checkbox" name="" id="" data-enhanced="true"></td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle heineken</td>
+          <td>Tourelle</td>
+          <td><input type="checkbox" name="" id="" data-enhanced="true"></td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle heineken</td>
+          <td>Tourelle</td>
+          <td><input type="checkbox" name="" id="" data-enhanced="true"></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <button type="submit" id="submit-8" onclick='$("#pop-calibration").popup("open");' class="ui-shadow ui-btn ui-corner-all">Valider</button>
+  </div>
+  <!-- /content -->
+  <!-- ################################### POPUP CALIBRATION ########################### -->
+  <div id="pop-calibration" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-split-icon="gear">
+    <div class="ui-content" role="main">
+      <h1 style="text-align:center"> Calibration en cours...</h1>
+      <img src="img/loading.gif" alt="Loading..." id="loading">
+      <a href="#" class="btn-annuler" data-role="button">Annuler calibration</a>
+    </div>
+  </div>
+
+</div>
+<!-- ################################### GESTION ART ################################### -->
+<!-- ################################################################################### -->
+<!-- ################################### ajout articles ################################ -->
+<div data-role="page" id="ajout-art">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Ajout article</h1>
+  </div>
+  <div id="form-etab" role="main" class="ui-content">
+    <form>
+      <label for="textinput-hide" class="ui-hidden-accessible">Nom:</label>
+      <input type="text" name="textinput-hide" id="nom" placeholder="Nom" value="">
+      <label for="textinput-hide" class="ui-hidden-accessible">Numero caisse:</label>
+      <input type="text" name="textinput-hide" id="num-caisse" placeholder="Numero caisse" value="">
+      <label for="textinput-hide" class="ui-hidden-accessible">Nombre de doses:</label>
+      <input type="text" name="textinput-hide" id="nb-doses" placeholder="Nombre de doses" value="">
+      <div class="ui-field-contain">
+        <select name="select-choice-a" id="produit-choix" data-native-menu="false">
+          <option>Type produit :</option>
+          <option value="alcool">Alcool</option>
+          <option value="biere">Biere</option>
+          <option value="chaud">Chaud</option>
+          <option value="cafe">Cafe</option>
+        </select>
+      </div>
+      <select name="select-choice-8" id="cocktail-choix" multiple="multiple" data-native-menu="false">
+        <option>Cocktail / article associe :</option>
+        <option value="standard">Choix1</option>
+        <option value="rush">Choix2</option>
+        <option value="express">Choix3</option>
+        <option value="overnight">Choix4</option>
+      </select>
+      <div class="ui-field-contain">
+        <select name="select-choice-a" id="serveur-choix" data-native-menu="false">
+          <option>Serveur affecte :</option>
+          <option value="standard">Choix1</option>
+          <option value="rush">Choix2</option>
+          <option value="express">Choix3</option>
+          <option value="overnight">Choix4</option>
+        </select>
+      </div>
+      <button type="submit" id="submit-8" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
+    </form>
+  </div>
+</div>
+<!-- ################################### supprimer/modifier articles ################### -->
+<div data-role="page" id="gestion-art" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Gestion articles</h1>
+  </div>
+  <div data-role="content">
+    <table id="articles" class="display" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Numero</th>
+          <th>Typeboisson</th>
+          <th>N°</th>
+          <th>Nom</th>
+          <th>Art ass</th>
+          <th>Quantite</th>
+          <th>Serv</th>
+          <th>Numeroint</th>
+          <th>Numerodoseur</th>
+          <th>Prix</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <!-- /content -->
+<!--   <div id="edit-popup" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-split-icon="gear">
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a> 
+    <div data-role="header" data-theme="a">
+      <h1>Editer</h1>
+    </div>
+    <div class="ui-content" role="main">
+      <form id='edit-form'>
+      </form>
+    </div>
+  </div> -->
+</div>
+
+<div data-role="page" id="edition" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#gestion-art">Retour</a>
+    <h1>Edition</h1>
+  </div>
+  <div data-role="content" class="page_content">
+    <form id='edit-form'>
+    </form>
+  </div>
+  <!-- /content -->
+</div>
+
+<!-- ################################### GESTION INTERFACE ##################################### -->
+<!-- ################################################################################### -->
+<!-- ################################### ajout interface ############################### -->
+<div data-role="page" id="ajout-interface" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Ajout interface</h1>
+  </div>
+  <div id="form-interface" role="main" class="ui-content">
+    <form>
+      <label for="textinput-hide" class="ui-hidden-accessible">Adresse mac :</label>
+      <input type="text" name="textinput-hide" id="nom" placeholder="Nom" value="">
+      <div class="ui-field-contain">
+        <select name="select-choice-a" id="type-choix" data-native-menu="false">
+          <option>Type :</option>
+          <option value="choix">choix</option>
+          <option value="choix">Biere</option>
+          <option value="choix">choix</option>
+        </select>
+      </div>
+      <button type="submit" id="submit-8" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
+    </form>
+  </div>
+</div>
+<!-- ################################### gestion interface ############################# -->
+<div data-role="page" id="gestion-interface" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Gestion interface</h1>
+  </div>
+  <div data-role="content">
+    <table data-role="table" id="nettoyage-table" data-mode="reflow" class="ui-responsive">
+      <thead>
+        <tr>
+          <th data-priority="1">NUMERO</th>
+          <th data-priority="2">MAC</th>
+          <th data-priority="3">TYPE</th>
+          <th data-priority="4">ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle</td>
+          <td><a href="#" class="btn-supprimer" data-role="button">Supprimer</a></td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle</td>
+          <td><a href="#" class="btn-supprimer" data-role="button">Supprimer</a></td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle</td>
+          <td><a href="#" class="btn-supprimer" data-role="button">Supprimer</a></td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle</td>
+          <td><a href="#" class="btn-supprimer" data-role="button">Supprimer</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- /content -->
+</div>
+<!-- ################################### UTILISATEUR ##################################### -->
+<!-- ##################################################################################### -->
+<!-- ################################### ajout utilisateur  ############################## -->
+<div data-role="page" id="ajout-user">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Ajout utilisateur</h1>
+  </div>
+  <div id="form-user" role="main" class="ui-content">
+    <form>
+      <label for="textinput-hide" class="ui-hidden-accessible">Nom:</label>
+      <input type="text" name="textinput-hide" id="nom" placeholder="Nom" value="">
+      <label for="textinput-hide" class="ui-hidden-accessible">Mot de passe:</label>
+      <input type="text" name="textinput-hide" id="mdp" placeholder="Mot de passe" value="">
+      <div class="ui-field-contain">
+        <select id="droit-choix" data-native-menu="false">
+          <option>Droits:</option>
+          <option value="serveur">Serveur</option>
+          <option value="manager">Manager</option>
+        </select>
+      </div>
+      <button type="submit" id="submit-8" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
+    </form>
+  </div>
+</div>
+<!-- ################################### modifier utilisateur  ############################## -->
+<div data-role="page" id="modifier-user" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Supprimer / modifier utilisateur</h1>
+  </div>
+  <div data-role="content">
+    <!-- TODO voir idem tab Articles -->
+  </div>
+  <!-- /content -->
+</div>
+<!-- ################################### MATERIEL ##################################### -->
+<!-- ################################################################################## -->
+<!-- ################################### gestion materiel  ############################ -->
+<div data-role="page" id="gestion-materiel" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Gestion materiel</h1>
+  </div>
+  <div data-role="content">
+    <form>
+      <div class="ui-field-contain">
+        <select name="select-choice-a" data-native-menu="false">
+          <option>Port serie 1 :</option>
+          <option value="aucun">aucun</option>
+          <option value="topbar">topbar control</option>
+          <option value="harton">harton</option>
+          <option value="tango">tango</option>
+        </select>
+      </div>
+      <div class="ui-field-contain">
+        <select name="select-choice-a" data-native-menu="false">
+          <option>Port serie 2 :</option>
+          <option value="aucun">aucun</option>
+          <option value="topbar">topbar control</option>
+          <option value="harton">harton</option>
+          <option value="tango">tango</option>
+        </select>
+      </div>
+      <label for="slider-dongle">Activer dongle SMS:</label>
+      <select name="slider-dongle" id="dongle" data-role="slider">
+        <option value="non">Non</option>
+        <option value="oui">Oui</option>
+      </select>
+      <button type="submit" id="submit-8" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
+    </form>
+  </div>
+  <!-- /content -->
+</div>
+<!-- ##################################### NETTOYAGE ################################### -->
+<!-- ################################################################################### -->
+<!-- ################################### A/D nettoyage ################################# -->
+<div data-role="page" id="activer-nettoyage" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Activer / desactiver nettoyage</h1>
+  </div>
+  <div data-role="content">
+    <table data-role="table" id="nettoyage-table" data-mode="reflow" class="ui-responsive">
+      <thead>
+        <tr>
+          <th data-priority="1">NUMERO</th>
+          <th data-priority="2">MAC</th>
+          <th data-priority="3">NOM</th>
+          <th data-priority="4">TYPE</th>
+          <th data-priority="5">ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle heineken</td>
+          <td>Tourelle</td>
+          <td><a href="#" class="btn-activer" data-role="button">Activer</a></td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle heineken</td>
+          <td>Tourelle</td>
+          <td><a href="#" class="btn-activer" data-role="button">Activer</a></td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle heineken</td>
+          <td>Tourelle</td>
+          <td><a href="#" class="btn-activer" data-role="button">Activer</a></td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>A1E</td>
+          <td>Tourelle heineken</td>
+          <td>Tourelle</td>
+          <td><a href="#" class="btn-activer" data-role="button">Activer</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- /content -->
+</div>
+<!-- ################################### nettoyage actuel ############################## -->
+<div data-role="page" id="actuel-nettoyage" data-theme="a">
+  <div data-role="header">
+    <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+    <h1>Nettoyage actuel</h1>
+  </div>
+  <div data-role="content">
+    <table data-role="table" id="nettoyage-table" data-mode="reflow" class="ui-responsive">
+      <thead>
+        <tr>
+          <th data-priority="1">NOM</th>
+          <th data-priority="2">MAC</th>
+          <th data-priority="3">QUANTITE</th>
+          <th data-priority="4">HEURE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>aaaa</th>
+          <td>bbbb</td>
+          <td>ccccccc</td>
+          <td>ddddddd</td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" id="reinitialiser" class="ui-shadow ui-btn ui-corner-all">Reinitialiser</button>
+  </div>
+  <!-- /content -->
+</div>
+</body>
+</html>
