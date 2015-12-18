@@ -1,3 +1,19 @@
+var socket = io();
+/*
+socket.emit('ajoutarticle', 2,"Vins arbois","2");
+socket.emit('ajoutarticle', 3,"Muscaret","3");
+socket.emit('ajoutarticle', 4,"Magnum","4");
+socket.emit('ajoutarticle', 5,"Edenvine","5");
+socket.emit('ajoutarticle', 6,"Vodka absolute","6");
+socket.emit('ajoutarticle', 7,"Limeone","7");
+socket.emit('ajoutarticle', 8,"Chateau de Pampelone","8");
+*/
+socket.on('receive', function (data) {
+	console.log(data);
+	for (var i =  0; i < data.famille1.product.length; i++) {
+		console.log(data.famille1.product[i].nom + "Couleur : " + data.famille1.product[i].color);
+	};
+ });
 
 // ######################## EVENTS ########################
 
