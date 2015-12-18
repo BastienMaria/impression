@@ -1,0 +1,43 @@
+/* ############################################################################# */
+/* ############################################################################# */
+/* ############################################################################# */
+/* ############################## TABLET - >800px ############################## */
+/* ############################################################################# */
+/* ############################################################################# */
+/* ############################################################################# */
+
+@media all and (min-width: 500px) {
+
+	/* HEADER */
+	/* HEADER : NAVBAR */
+	div[data-role="navbar"] > ul > li > a {
+		font-size: 140% !important;
+	}
+
+	/* CONTENT */
+	a.custom {
+		white-space: inherit;
+		word-wrap: break-word;
+		height: 110px;    
+		display: -webkit-box;
+		-webkit-line-clamp: 7;
+		-webkit-box-orient: vertical;
+
+		color: black !important;
+
+	}
+
+	/*TEST*/
+	a.custom {
+		background: rgba(222,130,122,1);
+		background: -moz-radial-gradient(center, ellipse cover, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(222,130,122,1)), color-stop(37%, rgba(222,130,122,1)), color-stop(100%, rgba(219,103,90,1)));
+		background: -webkit-radial-gradient(center, ellipse cover, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
+		background: -o-radial-gradient(center, ellipse cover, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
+		background: -ms-radial-gradient(center, ellipse cover, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
+		background: radial-gradient(ellipse at center, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#de827a', endColorstr='#db675a', GradientType=1 );
+	}
+}
+
+

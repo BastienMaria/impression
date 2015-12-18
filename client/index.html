@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Topbar</title>
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="css/jqm-1.4.5.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/impression.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- scripts -->
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="js/main.js"></script>  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <!-- ///////////////////////////////////// PAGE 1 :        ///////////////////////////////////// -->
+  <!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
+  <div data-role="page" id="page1" data-theme="a" data-content-theme="a" data-title="Vodka">
+    <!-- ################################### HEADER ################################### -->
+    <!-- ############################################################################## -->
+    <div data-role="header" data-position="fixed" data-tap-toggle="false">
+      <img id="logo" src="img/logo.png">
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#page1" class="ui-btn-active ui-state-persist">Vodka</a></li>
+          <li><a href="#">Champ</a></li>
+          <li><a href="#">Rhum</a></li>
+          <li><a href="#">Vin</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">Whisky</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- ################################### CONTENT ################################## -->
+    <!-- ############################################################################## -->
+    <div id="main-page" data-role="main" class="ui-content">
+      <div class="ui-grid-b ui-responsive">
+        <div class="ui-block-a"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Smirnoff 2L</a></div>
+        <div class="ui-block-b"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Absolut Citron 1L</a></div>
+        <div class="ui-block-c"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Absolut Ruby Red</a></div>
+      </div> 
+      <div class="ui-grid-b ui-responsive">
+        <div class="ui-block-a"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">test test test</a></div>
+        <div class="ui-block-b"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Absolut aaaa 2L</a></div>
+        <div class="ui-block-c"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Absolut bbbb eeee</a></div>
+      </div> 
+      <div class="ui-grid-b ui-responsive">
+        <div class="ui-block-a"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Smirnoff cccc 1L</a></div>
+        <div class="ui-block-b"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Absolut Citron 2L</a></div>
+        <div class="ui-block-c"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Absolut gggggggg</a></div>
+      </div> 
+      <div class="ui-grid-b ui-responsive">
+        <div class="ui-block-a"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Smirnoff 1L</a></div>
+        <div class="ui-block-b"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Absolut Citron 2L</a></div>
+        <div class="ui-block-c"><a href="#" class="ui-btn ui-shadow ui-corner-all custom">Absolut Ruby Red</a></div>
+      </div> 
+    </div>
+    <!-- ################################### FOOTER ################################### -->
+    <!-- ############################################################################## -->
+    <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" >
+      <div class="ui-grid-a full-width-buttons">
+        <div class="ui-block-a"><a href="#login-main" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-icon-user ui-btn-icon-left" data-position-to="window">SARAH</a></div>
+        <div class="ui-block-b"><a href="#functions" data-transition="slide" class="ui-btn ui-shadow ui-corner-all ui-icon-star ui-btn-icon-left">Fonctions</a></div>
+      </div>
+      <h6 id="copyright">&copy; 2016 TopBar</h6>
+    </div>
+  </div>
+
+  <!-- ################################### PAGE 2 : FONCTIONS ################################### -->
+  <!-- ########################################################################################## -->
+  <div data-role="page" id="functions">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#page1">Retour</a>
+      <h1>Fonctions</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="histo-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Parametres</h3>
+          <ul data-role="listview">
+            <li><a href="#">Imprimante</a></li>
+            <li><a href="#">Article</a></li>
+            <li><a href="#">Famille</a></li>
+            <li><a href="#">Reseau</a></li>
+            <li><a href="#">Identifiant</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /historiques -->
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="param-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Creation</h3>
+          <ul data-role="listview">
+            <li><a href="#">Famille</a></li>
+            <li><a href="#">Article</a></li>
+            <li><a href="#">Etiquette</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" >
+      <h6 id="copyright">&copy; 2016 TopBar</h6>
+    </div>
+    <!-- ################################### ERROR POPUP ################################### -->
+    <div id="error" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-history="false">
+      <h1 style="text-align:center">NON AUTORISE</h1>
+    </div>
+  </div>  
+</body>
+</html>
