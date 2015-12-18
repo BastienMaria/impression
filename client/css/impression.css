@@ -38,6 +38,12 @@
 		background: radial-gradient(ellipse at center, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#de827a', endColorstr='#db675a', GradientType=1 );
 	}
+
+	/*COLOR PICKER*/
+	#zone-color {
+		all: initial;
+	}
+
 }
 
 

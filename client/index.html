@@ -8,10 +8,14 @@
   <link rel="stylesheet" type="text/css" href="css/common.css">
   <link rel="stylesheet" type="text/css" href="css/impression.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">
+  <link href="colorpicker/css/evol.colorpicker.min.css" rel="stylesheet" type="text/css">
   <!-- scripts -->
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <script src="js/main.js"></script>  
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/main.js"></script>
+  <script src="colorpicker/js/evol.colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -81,24 +85,37 @@
     </div>
     <div role="main" class="ui-content">
       <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
-        <div id="histo-collapsible" data-role="collapsible" class="functions-collapsible">
-          <h3>Parametres</h3>
+        <div id="mat-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Parametres materiels</h3>
           <ul data-role="listview">
             <li><a href="#">Imprimante</a></li>
-            <li><a href="#">Article</a></li>
-            <li><a href="#">Famille</a></li>
             <li><a href="#">Reseau</a></li>
+          </ul>
+        </div>
+      </div>
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="user-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Parametres utilisateur</h3>
+          <ul data-role="listview">
             <li><a href="#">Identifiant</a></li>
           </ul>
         </div>
       </div>
-      <!-- /historiques -->
       <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
-        <div id="param-collapsible" data-role="collapsible" class="functions-collapsible">
-          <h3>Creation</h3>
+        <div id="product-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Parametres produits</h3>
           <ul data-role="listview">
             <li><a href="#">Famille</a></li>
             <li><a href="#">Article</a></li>
+          </ul>
+        </div>
+      </div>
+      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
+        <div id="crea-collapsible" data-role="collapsible" class="functions-collapsible">
+          <h3>Creation</h3>
+          <ul data-role="listview">
+            <li><a href="#add-family">Ajout famille</a></li>
+            <li><a href="#add-product">Ajout article</a></li>
             <li><a href="#">Etiquette</a></li>
           </ul>
         </div>
@@ -111,6 +128,32 @@
     <div id="error" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-history="false">
       <h1 style="text-align:center">NON AUTORISE</h1>
     </div>
-  </div>  
+  </div>
+  <!-- ################################### CREATION ##################################### -->
+  <!-- ################################################################################## -->
+  <!-- ################################### ajout famille  ############################### -->
+  <div data-role="page" id="add-family" data-theme="a">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+      <h1>Ajout famille</h1>
+    </div>
+    <div data-role="content">
+      <form>
+        <label for="textinput">Nom famille:</label>
+        <input type="text" name="textinput" id="name" placeholder="" value="">
+        <label for="number-pattern">Nombre de pichets:</label>
+        <input type="number" name="number" step="1" value="0" min="0" max="5" id="number-pattern">
+
+        <div id="zone-color" style="width:128px;">
+         <input data-role="none" style="width:100px;" id="mycolor" class="colorPicker evo-cp0" />
+       </div>
+       <br>
+       <button type="submit" id="submit-8" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
+     </form>
+   </div>
+   <!-- /content -->
+ </div>  
+ <!-- ################################### ajout produit  ############################### -->
+
 </body>
 </html>

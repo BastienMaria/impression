@@ -1,23 +1,7 @@
-{
-	"Champagne": [
-	{
-		"id": 354,
-		"name": "Veuve Clicquot",
-		"color": "yellow"
-	}
-	],
-	"Vodka": [
-	{
-		"id": 654,
-		"name": "Smirnoff",
-		"color": "white"
-	}
-	],
-	"Rhum": [
-	{
-		"id": 546,
-		"name": "Charette",
-		"color": "brown"
-	}
-	]
-}
+[
+"name": "Champagne",
+"color":"fsdfwsdf",
+"pichet":"5",
+"products" : [
+]
+]
