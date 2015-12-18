@@ -22,10 +22,10 @@ connection.connect(function(err) {
 		console.error('error connecting: ' + err.stack);
 		return;
 	}
-	connection.query(allProductsWithFamily, function (err, results, fields) {
+	connection.query(getAllProductsWithFamily, function (err, results, fields) {
 		if (!err) {
-			for (var i in result) {
-				console.log(result[i]);
+			for (var i in results) {
+				console.log(results[i]);
 			}
 		}
 		else
