@@ -36,7 +36,13 @@ $(document).on("pageshow", "#functions", function() {
 	$("div[data-role='collapsible']").collapsible("collapse");
 });
 
+
 $(document).ready(function() {
+	$("#mycolor").colorpicker({
+		strings: "Couleurs de themes,Couleurs de base,Plus de couleurs,Moins de couleurs,Palette,Historique,Pas encore d'historique."
+	});
+
+
 	//ferme les autres collapsible quand on clique sur 1 et focus dessus
 	$("div[data-role='collapsible']").on("collapsibleexpand", function(event, ui) {
 		$("div[data-role='collapsible']").not($(this)).collapsible("collapse");
