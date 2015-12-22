@@ -1,5 +1,14 @@
 var socket = io();
-
+/*
+socket.emit('ajoutarticle', 1, "Chateau margaux", "1");
+socket.emit('ajoutarticle', 2, "Vins arbois", "2");
+socket.emit('ajoutarticle', 3, "Muscaret", "3");
+socket.emit('ajoutarticle', 4, "Magnum", "4");
+socket.emit('ajoutarticle', 5, "Edenvine", "5");
+socket.emit('ajoutarticle', 6, "Vodka absolute", "6");
+socket.emit('ajoutarticle', 7, "Limeone", "7");
+socket.emit('ajoutarticle', 8, "Chateau de Pampelone", "8");
+*/
 socket.on('receive', function(data) {
 	/*
 	for (var j = 0; j < data.length; j++) {
@@ -11,7 +20,7 @@ socket.on('receive', function(data) {
 	for (var j = 0; j < data.length; j++) {
 		console.log(data[j].name);
 		for (var i = 0; i < data[j].product.length; i++) {
-			console.log(data[j].product[i].name + " id : " + data[j].product[i].id);
+			console.log(data[j].product[i].name + " Couleur : " + data[j].product[i].color);
 		};
 
 	}
