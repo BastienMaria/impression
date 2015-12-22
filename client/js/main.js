@@ -1,4 +1,30 @@
 var socket = io();
+/*
+socket.emit('ajoutarticle', 1, "Chateau margaux", "1");
+socket.emit('ajoutarticle', 2, "Vins arbois", "2");
+socket.emit('ajoutarticle', 3, "Muscaret", "3");
+socket.emit('ajoutarticle', 4, "Magnum", "4");
+socket.emit('ajoutarticle', 5, "Edenvine", "5");
+socket.emit('ajoutarticle', 6, "Vodka absolute", "6");
+socket.emit('ajoutarticle', 7, "Limeone", "7");
+socket.emit('ajoutarticle', 8, "Chateau de Pampelone", "8");
+*/
+socket.on('receive', function(data) {
+	/*
+	for (var j = 0; j < data.length; j++) {
+		for (var i = 0; i < data[j].product.length; i++) {
+			console.log(data[j].product[i].name + "Couleur : " + data[j].product[i].color);
+		};
+	} */
+
+	for (var j = 0; j < data.length; j++) {
+		console.log(data[j].name);
+		for (var i = 0; i < data[j].product.length; i++) {
+			console.log(data[j].product[i].name + " Couleur : " + data[j].product[i].color);
+		};
+
+	}
+});
 var globalData;
 /*
 socket.emit('ajoutarticle', 1, "Chateau margaux", "1");
@@ -10,6 +36,7 @@ socket.emit('ajoutarticle', 6, "Vodka absolute", "6");
 socket.emit('ajoutarticle', 7, "Limeone", "7");
 socket.emit('ajoutarticle', 8, "Chateau de Pampelone", "8");
 */
+
 
 // ######################## EVENTS ########################
 
@@ -122,7 +149,7 @@ function appendDashboard(familyId) {
 			if (i != 0 && i % 3 == 0) {
 				dashboard += ' </div><div class="ui-grid-b ui-responsive">';
 			}
-			if(products[i].name == 'fake'){
+			if (products[i].name == 'fake') {
 				dashboard += '<div style="visibility:hidden" class="ui-block-' + blockClassType[i] + '"><a href="#" class="ui-btn ui-shadow ui-corner-all custom"></a></div>'
 			}else {
 				dashboard += '<div class="ui-block-' + blockClassType[i] + '"><a href="#" id="'+ products[i].id + '" class="pdt-btn ui-btn ui-shadow ui-corner-all custom">' + products[i].name + '</a></div>'
@@ -133,29 +160,29 @@ function appendDashboard(familyId) {
 
 		$(".pdt-btn").on("click", function(){
 			printEtiquette(familyId, this.id);
+
+		}
+	}
+
+	function printEtiquette(familyNumber, productId) {
+		console.log(familyNumber)
+		console.log(productId)
+	}
+
+	function showLoginError() {
+
+		$('#login-input')
+		.prop('type', 'text')
+		.css("color", "red")
+		.val('MOT DE PASSE NON VALIDE')
+		.fadeOut(2000, function() {
+			$(this)
+			.prop('type', 'password')
+			.val('')
+			.removeAttr("style");
+		});
+
+		$("#1, #2, #3, #4, #5, #6, #7, #8, #9, #0").on("click", function() {
+			$('#login-input').stop(true, true)
 		});
 	}
-}
-
-function printEtiquette(familyNumber, productId){
-	console.log(familyNumber)
-	console.log(productId)
-}
-
-function showLoginError() {
-
-	$('#login-input')
-	.prop('type', 'text')
-	.css("color", "red")
-	.val('MOT DE PASSE NON VALIDE')
-	.fadeOut(2000, function() {
-		$(this)
-		.prop('type', 'password')
-		.val('')
-		.removeAttr("style");
-	});
-
-	$("#1, #2, #3, #4, #5, #6, #7, #8, #9, #0").on("click", function() {
-		$('#login-input').stop(true, true)
-	});
-}
