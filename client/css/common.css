@@ -137,7 +137,7 @@ max-width: 45px;*/
 
 
 /*BODY*/
-#page1, #page2 {
+#main-page{
 
 	background: rgba(134,67,141,1);
 	background: -moz-linear-gradient(-45deg, rgba(134,67,141,1) 0%, rgba(134,67,141,1) 19%, rgba(143,93,148,1) 32%, rgba(167,117,173,1) 45%, rgba(210,146,217,1) 69%, rgba(221,166,227,1) 86%, rgba(221,166,227,1) 100%);
