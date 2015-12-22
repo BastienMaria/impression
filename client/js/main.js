@@ -58,7 +58,7 @@ socket.on('receive', function(data) {
 	var navbar = [];
 	for (var i = 0; i < data.length; i++) {
 		var obj = {
-			"family_id": data[i].id,
+			"familyId": data[i].id,
 			"name": data[i].name
 		};
 		navbar.push(obj)
@@ -74,11 +74,11 @@ function appendNavbar(data) {
 
 	var nav = '<div data-role="navbar" id="main-nav"><ul id="first-ul">'
 	for (var i = 0; i < 4; i++) {
-		nav += '<li><a href="#" class="nav-link" id="' + data[i].family_id + '">' + data[i].name + '</a></li>'
+		nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '">' + data[i].name + '</a></li>'
 	}
 	nav += '</ul><ul>'
 	for (var i = 4; i < data.length; i++) {
-		nav += '<li><a href="#" class="nav-link" id="' + data[i].family_id + '">' + data[i].name + '</a></li>'
+		nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '">' + data[i].name + '</a></li>'
 	}
 	nav += '</ul></div>';
 	$("#head").append(nav);
@@ -97,10 +97,10 @@ round_up = function(x, factor) {
 	return x - (x % factor) + (x % factor > 0 && factor);
 }
 
-function appendDashboard(family_id) {
+function appendDashboard(familyId) {
 	$('#main-content').empty();
 
-	var products = globalData[family_id - 1].product;
+	var products = globalData[familyId - 1].product;
 
 	if (products.length != 0) {
 		// arrondi tableau au multiple de 3 superieur
@@ -125,14 +125,14 @@ function appendDashboard(family_id) {
 			if(products[i].name == 'fake'){
 				dashboard += '<div style="visibility:hidden" class="ui-block-' + blockClassType[i] + '"><a href="#" class="ui-btn ui-shadow ui-corner-all custom"></a></div>'
 			}else {
-				dashboard += '<div class="ui-block-' + blockClassType[i] + '"><a href="#" class="pdt-btn ui-btn ui-shadow ui-corner-all custom">' + products[i].name + '</a></div>'
+				dashboard += '<div class="ui-block-' + blockClassType[i] + '"><a href="#" id="'+ products[i].id + '" class="pdt-btn ui-btn ui-shadow ui-corner-all custom">' + products[i].name + '</a></div>'
 			}
 		}
 		dashboard += ' </div>';
 		$("#main-content").append(dashboard);
 
 		$(".pdt-btn").on("click", function(){
-			printEtiquette(this.value, this.id);
+			printEtiquette(familyId, this.id);
 		});
 	}
 }
