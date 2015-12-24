@@ -23,10 +23,13 @@ $(document).on("pageshow", "#functions", function() {
 
 
 $(document).ready(function() {
-	$("#mycolor").colorpicker({
-		strings: "Couleurs de themes,Couleurs de base,Plus de couleurs,Moins de couleurs,Palette,Historique,Pas encore d'historique."
-	});
 
+	$( "#color-picker" ).enhanceWithin().popup();
+
+	$(".color-btn").on("click", function() {
+		$("#color-selected, #mycolor").css('background-color', this.value);
+		$("#color-selected").attr("value", this.value);
+	});
 
 	//ferme les autres collapsible quand on clique sur 1 et focus dessus
 	$("div[data-role='collapsible']").on("collapsibleexpand", function(event, ui) {
@@ -36,6 +39,20 @@ $(document).ready(function() {
 		}, 'slow');
 	});
 
+	$( "#add-family" ).submit(function( event ) {
+		var familyName = $( "#name" ).val();
+		var pichet = $( "#pichet" ).val();
+		var color = $( "#color-selected" ).val();
+		console.log(familyName + '  ' + color + '   ' + pichet)
+		socket.emit('ajoutfamille', familyName, color, pichet);
+		$.mobile.changePage( "#main-page", { transition: "slideup", changeHash: true });
+		event.preventDefault();
+	});	
+
+	$( "#add-product" ).submit(function( event ) {
+		// socket.emit('ajoutarticle', 1, "Chateau margaux", "1");
+		event.preventDefault();
+	});
 });
 
 $(document).on("pageremove", function(event) {
@@ -59,7 +76,8 @@ socket.on('receive', function(data) {
 	for (var i = 0; i < data.length; i++) {
 		var obj = {
 			"familyId": data[i].id,
-			"name": data[i].name
+			"name": data[i].name,
+			"family_color": data[i].color
 		};
 		navbar.push(obj)
 	}
@@ -74,11 +92,11 @@ function appendNavbar(data) {
 
 	var nav = '<div data-role="navbar" id="main-nav"><ul id="first-ul">'
 	for (var i = 0; i < 4; i++) {
-		nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '">' + data[i].name + '</a></li>'
+		nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].family_color +';">' + data[i].name + '</a></li>'
 	}
 	nav += '</ul><ul>'
 	for (var i = 4; i < data.length; i++) {
-		nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '">' + data[i].name + '</a></li>'
+		nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].family_color +';">' + data[i].name + '</a></li>'
 	}
 	nav += '</ul></div>';
 	$("#head").append(nav);

@@ -40,8 +40,10 @@
 	}
 
 	/*COLOR PICKER*/
-	#zone-color {
-		all: initial;
+
+	#color-pick-zone > div > div > input, #color-selected, #mycolor{
+		opacity: initial !important;
+		font-color:transparent;
 	}
 
 }
