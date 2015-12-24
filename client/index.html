@@ -8,14 +8,10 @@
   <link rel="stylesheet" type="text/css" href="css/common.css">
   <link rel="stylesheet" type="text/css" href="css/impression.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">
-  <link href="colorpicker/css/evol.colorpicker.min.css" rel="stylesheet" type="text/css">
   <!-- scripts -->
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/main.js"></script>
-  <script src="colorpicker/js/evol.colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/main.js"></script>  
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +19,7 @@
 <body>
   <!-- ///////////////////////////////////// PAGE 1 :        ///////////////////////////////////// -->
   <!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
-  <div data-role="page" id="main-page" data-theme="a" data-content-theme="a" data-title="Vodka">
+  <div data-role="page" id="main-page" data-theme="a" data-content-theme="a">
     <!-- ################################### HEADER ################################### -->
     <!-- ############################################################################## -->
     <div data-role="header" id="head" data-position="fixed" data-tap-toggle="false">
@@ -53,15 +49,6 @@
     </div>
     <div role="main" class="ui-content">
       <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
-        <div id="mat-collapsible" data-role="collapsible" class="functions-collapsible">
-          <h3>Parametres materiels</h3>
-          <ul data-role="listview">
-            <li><a href="#">Imprimante</a></li>
-            <li><a href="#">Reseau</a></li>
-          </ul>
-        </div>
-      </div>
-      <div data-role="collapsible-set" data-theme="a" data-content-theme="a">
         <div id="user-collapsible" data-role="collapsible" class="functions-collapsible">
           <h3>Parametres utilisateur</h3>
           <ul data-role="listview">
@@ -84,7 +71,6 @@
           <ul data-role="listview">
             <li><a href="#add-family">Ajout famille</a></li>
             <li><a href="#add-product">Ajout article</a></li>
-            <li><a href="#">Etiquette</a></li>
           </ul>
         </div>
       </div>
@@ -106,22 +92,84 @@
       <h1>Ajout famille</h1>
     </div>
     <div data-role="content">
-      <form>
+      <form id="add-family">
         <label for="textinput">Nom famille:</label>
-        <input type="text" name="textinput" id="name" placeholder="" value="">
-        <label for="number-pattern">Nombre de pichets:</label>
-        <input type="number" name="number" step="1" value="0" min="0" max="5" id="number-pattern">
+        <input type="text" name="textinput" id="name" placeholder="" maxlength="15" required="true">
 
-        <div id="zone-color" style="width:128px;">
-         <input data-role="none" style="width:100px;" id="mycolor" class="colorPicker evo-cp0" />
-       </div>
-       <br>
-       <button type="submit" id="submit-8" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
-     </form>
-   </div>
-   <!-- /content -->
- </div>  
- <!-- ################################### ajout produit  ############################### -->
+        <label for="pichet">Nombre de pichets:</label>
+        <input type="number" name="number" step="1" value="0" min="0" max="5" id="pichet">
 
+        <br>
+        <label for="mycolor">Couleur d'onglet:</label>
+        <a href="#color-picker" id="mycolor" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">...</a>
+
+        <br>
+        <button type="submit" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
+      </form>
+    </div>
+    <!-- /content -->
+  </div>
+  <!-- ################################### CREATION ##################################### -->
+  <!-- ################################################################################## -->
+  <!-- ################################### ajout produit  ############################### -->
+  <div data-role="page" id="add-product" data-theme="a">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+      <h1>Ajout article</h1>
+    </div>
+    <div data-role="content">
+      <form id="add-family">
+        <div class="ui-field-contain">
+          <select id="family-choice" data-native-menu="false">
+            <option>Famille:</option>
+            <option value="serveur">Serveur</option>
+            <option value="manager">Manager</option>
+          </select>
+        </div>
+
+        <label for="textinput">Nom article:</label>
+        <input type="text" name="textinput" id="name" placeholder="" maxlength="15" required="true">
+
+        <br>
+        <label for="mycolor">Couleur d'onglet:</label>
+        <a href="#color-picker" id="mycolor" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">...</a>
+
+        <br>
+        <button type="submit" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
+      </form>
+    </div>
+    <!-- /content -->
+  </div> 
+  <!-- POPUP COLOR PICKER -->
+  <div id="color-picker" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-history="false">
+    <div class="ui-content" role="main">
+      <div class="ui-grid-d" id="color-pick-zone">
+        <div class="ui-block-a"><input type="button" value="#26D1AF" style="background-color:#26D1AF" class="color-btn"></div>
+        <div class="ui-block-b"><input type="button" value="#3BE382" style="background-color:#3BE382" class="color-btn"></div>
+        <div class="ui-block-c"><input type="button" value="#5AB2ED" style="background-color:#5AB2ED" class="color-btn"></div>
+        <div class="ui-block-d"><input type="button" value="#BD7ED6" style="background-color:#BD7ED6" class="color-btn"></div>
+        <div class="ui-block-e"><input type="button" value="#586C80" style="background-color:#586C80" class="color-btn"></div>
+
+        <div class="ui-block-a"><input type="button" value="#16a085" style="background-color:#16a085" class="color-btn"></div>
+        <div class="ui-block-b"><input type="button" value="#27ae60" style="background-color:#27ae60" class="color-btn"></div>
+        <div class="ui-block-c"><input type="button" value="#2980b9" style="background-color:#2980b9" class="color-btn"></div>
+        <div class="ui-block-d"><input type="button" value="#8e44ad" style="background-color:#8e44ad" class="color-btn"></div>
+        <div class="ui-block-e"><input type="button" value="#2c3e50" style="background-color:#2c3e50" class="color-btn"></div>
+
+        <div class="ui-block-a"><input type="button" value="#f1c40f" style="background-color:#f1c40f" class="color-btn"></div>
+        <div class="ui-block-b"><input type="button" value="#e67e22" style="background-color:#e67e22" class="color-btn"></div>
+        <div class="ui-block-c"><input type="button" value="#e74c3c" style="background-color:#e74c3c" class="color-btn"></div>
+        <div class="ui-block-d"><input type="button" value="#ecf0f1" style="background-color:#ecf0f1" class="color-btn"></div>
+        <div class="ui-block-e"><input type="button" value="#95a5a6" style="background-color:#95a5a6" class="color-btn"></div>
+
+        <div class="ui-block-a"><input type="button" value="#f39c12" style="background-color:#f39c12" class="color-btn"></div>
+        <div class="ui-block-b"><input type="button" value="#d35400" style="background-color:#d35400" class="color-btn"></div>
+        <div class="ui-block-c"><input type="button" value="#c0392b" style="background-color:#c0392b" class="color-btn"></div>
+        <div class="ui-block-d"><input type="button" value="#bdc3c7" style="background-color:#bdc3c7" class="color-btn"></div>
+        <div class="ui-block-e"><input type="button" value="#7f8c8d" style="background-color:#7f8c8d" class="color-btn"></div>
+      </div>
+      <input type="button" value="..." id="color-selected" style="background-color:transparent">
+    </div>
+  </div> 
 </body>
 </html>
