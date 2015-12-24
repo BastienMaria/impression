@@ -13,7 +13,7 @@ var configuration = JSON.parse(
 );
 var idDay = configuration.idDay;
 var nameetab = configuration.Nom;
-var date1; // = new Date(configuration.date);
+var date1 = new Date(configuration.date);
 var heure = configuration.heure;
 var minute = configuration.minute;
 console.log("heure" + heure);
@@ -40,7 +40,7 @@ thread.on('theFiboIs', function cb(data) {
     this.emit('giveMeTheFibo', "ok");
 });
 
-date1 = new Date(2015, 11, 22, 16, 00, 15, 0);
+//date1 = new Date(2015, 11, 22, 16, 00, 15, 0);
 
 var famille1 = {
     id: 1,
@@ -166,6 +166,20 @@ famille6 = savedata.famille6;
 famille7 = savedata.famille7;
 famille8 = savedata.famille8;
 
+var userFile = 'user.json';
+var userData = JSON.parse(
+    fs.readFileSync(userFile)
+);
+
+var user = [];
+
+for (var i = 0; i < userData.utilisateur.length; i++) {
+    user.push(userData.utilisateur[i]);
+}
+
+for (var i = 0; i < user.length; i++) {
+    console.log("Utilisateur : " + user[i].user + " Mot de passe : " + user[i].password + " droit : " + user[i].droit);
+}
 
 function send() {
     var tab = [];
@@ -667,8 +681,15 @@ io.on('connection', function(socket) {
                     tab[i].color = color;
                     tab[i].pichets = pichet;
                     tab[i].libre = false;
+                    socket.emit('okajoutfamille');
+                } else {
+                    if (i == 7) {
+                        console.log("Erreur ajout famille");
+                        socket.emit('erreurajoutfamille');
+                    }
                 }
             }
+
         }
         var objWithSubObj = {
             famille1: famille1,
@@ -692,6 +713,22 @@ io.on('connection', function(socket) {
             //console.log('Saved successfully.')
         });
         send();
+    });
+
+
+    socket.on('envoifamille', function(name, color, pichet) {
+
+        var objWithSubObj = {
+            famille1: famille1,
+            famille2: famille2,
+            famille3: famille3,
+            famille4: famille4,
+            famille5: famille5,
+            famille6: famille6,
+            famille7: famille7,
+            famille8: famille8
+        };
+        io.sockets.emit('listefamille', objWithSubObj);
     });
 
     socket.on('modifierfamille', function(famille, name, color, pichet) {
@@ -753,6 +790,7 @@ io.on('connection', function(socket) {
                 tab[i].color = 0;
                 tab[i].pichets = 0;
                 tab[i].libre = true;
+                tab[i].product = [];
                 console.log("Famille supprimer");
             }
         }
@@ -849,15 +887,93 @@ io.on('connection', function(socket) {
         console.log("Impression : " + nomproduit + " Nombre pichet : " + nbpichet + " Nom d'établissement : " + nameetab);
     }
 
-    socket.on('verifutilisateur', function(user, mdp) {
+    socket.on('verifutilisateur', function(users, mdp) {
+        var check = false;
+        for (var i = 0; i < user.length; i++) {
+            if (user[i].user == users && user[i].password == mdp) {
+                console.log("Verification pour : " + users);
+                check = true;
+            }
+        }
+        if (check == true) {
+            console.log("Auth ok");
+            socket.emit('authok');
+        } else {
+            console.log("Erreur utilisateur");
+            socket.emit('authfalse');
+        }
+    });
+
+    socket.on('modifierutilisateur', function(users, mdp, newname, droit) {
+        for (var i = 0; i < user.length; i++) {
+            if (user[i].user == users) {
+                console.log("Modification pour : " + users);
+                user[i].user = newname;
+                user[i].password = mdp;
+                user[i].droit = droit;
+            }
+        }
+        var myOptions = {
+            utilisateur: user
+
+        };
+        var data = JSON.stringify(myOptions);
+        fs.writeFile('./user.json', data, function(err) {
+            if (err) {
+                console.log('There has been an error saving your configuration data.');
+                console.log(err.message);
+                return;
+            }
+            console.log('Configuration saved successfully.')
+        });
+        console.log("Utilisateur supprimé");
 
     });
 
-    socket.on('ajoututilisateur', function(user, mdp) {
+    socket.on('ajoututilisateur', function(users, mdp, droit) {
+        var objAddUser = {
+            user: users,
+            password: mdp,
+            droit: droit
+        };
+        user.push(objAddUser);
+        var myOptions = {
+            utilisateur: user
 
+        };
+        var data = JSON.stringify(myOptions);
+        fs.writeFile('./user.json', data, function(err) {
+            if (err) {
+                console.log('There has been an error saving your configuration data.');
+                console.log(err.message);
+                return;
+            }
+            console.log('Configuration saved successfully.')
+        });
+        console.log("Utilisateur ajouté");
     });
 
-    socket.on('supprimerutilisateur', function(user, mdp) {
+    socket.on('supprimerutilisateur', function(users) {
+        for (var i = 0; i < user.length; i++) {
+            if (user[i].user == users) {
+                console.log("Utilisateur supprimé" + users);
+                user.splice(i, 1);
+            }
+        }
+        var myOptions = {
+            utilisateur: user
+
+        };
+        var data = JSON.stringify(myOptions);
+        fs.writeFile('./user.json', data, function(err) {
+            if (err) {
+                console.log('There has been an error saving your configuration data.');
+                console.log(err.message);
+                return;
+            }
+            console.log('Configuration saved successfully.')
+        });
+        console.log("Utilisateur supprimé");
 
     });
 
@@ -952,6 +1068,7 @@ function checkdate() {
     console.log("Diiférence : " + difference_ms / one_day);
     if (difference_ms / one_day >= 0) {
         console.log("Jour dépassé...");
+        console.log("Date d'avant : " + date1);
         date1 = new Date();
         date1.setDate(date1.getDate() + 1);
         console.log("heure" + heure);
