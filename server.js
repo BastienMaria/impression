@@ -13,7 +13,7 @@ var configuration = JSON.parse(
 );
 var idDay = configuration.idDay;
 var nameetab = configuration.Nom;
-var date1; // = new Date(configuration.date);
+var date1 = new Date(configuration.date);
 var heure = configuration.heure;
 var minute = configuration.minute;
 console.log("heure" + heure);
@@ -692,6 +692,22 @@ io.on('connection', function(socket) {
             //console.log('Saved successfully.')
         });
         send();
+    });
+
+
+    socket.on('envoifamille', function(name, color, pichet) {
+
+        var objWithSubObj = {
+            famille1: famille1,
+            famille2: famille2,
+            famille3: famille3,
+            famille4: famille4,
+            famille5: famille5,
+            famille6: famille6,
+            famille7: famille7,
+            famille8: famille8
+        };
+        io.sockets.emit('listefamille', objWithSubObj);
     });
 
     socket.on('modifierfamille', function(famille, name, color, pichet) {
