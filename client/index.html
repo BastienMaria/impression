@@ -60,8 +60,8 @@
         <div id="product-collapsible" data-role="collapsible" class="functions-collapsible">
           <h3>Parametres produits</h3>
           <ul data-role="listview">
-            <li><a href="#">Famille</a></li>
-            <li><a href="#">Article</a></li>
+            <li><a href="#set-family">Famille</a></li>
+            <li><a href="#set-product">Article</a></li>
           </ul>
         </div>
       </div>
@@ -74,9 +74,6 @@
           </ul>
         </div>
       </div>
-    </div>
-    <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" >
-      <h6 id="copyright">&copy; 2016 TopBar</h6>
     </div>
     <!-- ################################### ERROR POPUP ################################### -->
     <div id="error" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-history="false">
@@ -136,6 +133,139 @@
         <br>
         <button type="submit" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
       </form>
+    </div>
+    <!-- /content -->
+  </div>   
+  <!-- ################################### PARAMETRES ################################### -->
+  <!-- ################################################################################## -->
+  <!-- ################################### modification famille ######################### -->
+  <div data-role="page" id="set-family" data-theme="a">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+      <h1>Modification famille</h1>
+    </div>
+    <div data-role="content">
+      <table class="ui-body-d ui-shadow table-stripe ui-responsive"
+      data-column-btn-text="Columns to display..." data-column-btn-theme="b"
+      data-column-popup-theme="a" data-mode="columntoggle" data-role="table" id=
+      "table-custom-2">
+      <thead>
+        <tr class="ui-bar-d">
+          <th data-priority="2">Rank</th>
+          <th>Movie Title</th>
+          <th data-priority="3">Year</th>
+          <th data-priority="1"><abbr title="Rotten Tomato Rating">Rating</abbr></th>
+          <th data-priority="5">Reviews</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>1</th>
+          <td>
+            <a data-rel="external" href=
+            "http://en.wikipedia.org/wiki/Citizen_Kane">Citizen Kane</a>
+          </td>
+          <td>1941</td>
+          <td>100%</td>
+          <td>74</td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td>
+            <a data-rel="external" href=
+            "http://en.wikipedia.org/wiki/Casablanca_(film)">Casablanca</a>
+          </td>
+          <td>1942</td>
+          <td>97%</td>
+          <td>64</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td>
+            <a data-rel="external" href=
+            "http://en.wikipedia.org/wiki/The_Godfather">The Godfather</a>
+          </td>
+          <td>1972</td>
+          <td>97%</td>
+          <td>87</td>
+        </tr>
+        <tr>
+          <th>4</th>
+          <td>
+            <a data-rel="external" href=
+            "http://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)">Gone with the
+            Wind</a>
+          </td>
+          <td>1939</td>
+          <td>96%</td>
+          <td>87</td>
+        </tr>
+        <tr>
+          <th>5</th>
+          <td>
+            <a data-rel="external" href=
+            "http://en.wikipedia.org/wiki/Lawrence_of_Arabia_(film)">Lawrence of
+            Arabia</a>
+          </td>
+          <td>1962</td>
+          <td>94%</td>
+          <td>87</td>
+        </tr>
+        <tr>
+          <th>6</th>
+          <td>
+            <a data-rel="external" href=
+            "http://en.wikipedia.org/wiki/Dr._Strangelove">Dr. Strangelove Or How I
+            Learned to Stop Worrying and Love the Bomb</a>
+          </td>
+          <td>1964</td>
+          <td>92%</td>
+          <td>74</td>
+        </tr>
+        <tr>
+          <th>7</th>
+          <td>
+            <a data-rel="external" href="http://en.wikipedia.org/wiki/The_Graduate">The
+              Graduate</a>
+            </td>
+            <td>1967</td>
+            <td>91%</td>
+            <td>122</td>
+          </tr>
+          <tr>
+            <th>8</th>
+            <td>
+              <a data-rel="external" href=
+              "http://en.wikipedia.org/wiki/The_Wizard_of_Oz_(1939_film)">The Wizard of
+              Oz</a>
+            </td>
+            <td>1939</td>
+            <td>90%</td>
+            <td>72</td>
+          </tr>
+          <tr>
+            <th>9</th>
+            <td>
+              <a data-rel="external" href=
+              "http://en.wikipedia.org/wiki/Singin%27_in_the_Rain">Singin' in the
+              Rain</a>
+            </td>
+            <td>1952</td>
+            <td>89%</td>
+            <td>85</td>
+          </tr>
+          <tr>
+            <th>10</th>
+            <td class="title">
+              <a data-rel="external" href=
+              "http://en.wikipedia.org/wiki/Inception">Inception</a>
+            </td>
+            <td>2010</td>
+            <td>84%</td>
+            <td>78</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <!-- /content -->
   </div> 

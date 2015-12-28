@@ -41,9 +41,8 @@
 
 	/*COLOR PICKER*/
 
-	#color-pick-zone > div > div > input, #color-selected, #mycolor{
+	#color-pick-zone > div > div > input, #mycolor{
 		opacity: initial !important;
-		font-color:transparent;
 	}
 
 }

@@ -83,6 +83,9 @@ $(document).ajaxComplete(function() {
 // fix bug de la taille du header au chargement
 $(window).on('load', function() {
 	$(this).trigger('resize');
+	$("#main-content").trigger('resize');
+	$( "#footer" ).toolbar( "refresh" );
+	$( "#head" ).toolbar( "refresh" );
 });
 
 socket.on('receive', function(data) {
