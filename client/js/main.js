@@ -17,7 +17,6 @@ socket.emit('verifutilisateur', "Justin", "nouveaumdp");
 socket.emit('supprimerfamille', 8);
 */
 
-socket.emit('ajoutfamille', "rosé", 2, 2);
 
 // ######################## EVENTS ########################
 $(document).bind('mobileinit', function() {
@@ -57,8 +56,17 @@ $(document).ready(function() {
 	});	
 
 	$( "#add-product" ).submit(function( event ) {
-		// socket.emit('ajoutarticle', 1, "Chateau margaux", "1");
+		var familyId = parseInt($( "#family-choice" ).val(), 10);
+		console.log("famille id   " + familyId)
+		var productName = $( "#name-art" ).val();
+		var color = $( "#color-selected" ).val();
+		socket.emit('ajoutarticle', 1, productName, color);
+		$.mobile.changePage( "#main-page", { transition: "slideup", changeHash: true });
 		event.preventDefault();
+	});
+
+	$("#add-art-menu").on("click", function(){
+		socket.emit('envoifamille');
 	});
 });
 
@@ -89,6 +97,13 @@ socket.on('receive', function(data) {
 		navbar.push(obj)
 	}
 	appendNavbar(navbar);
+});
+
+socket.on('listefamille', function(data) {
+	for (var i = 0; i < data.length; i++) {
+		$("#family-choice").append($('<option>', {value:data[i].id, text:data[i].name}));
+		$("#family-choice").selectmenu('refresh');
+	};
 });
 
 
@@ -170,15 +185,15 @@ function printEtiquette(familyNumber, productId) {
 function showLoginError() {
 
 	$('#login-input')
-		.prop('type', 'text')
-		.css("color", "red")
-		.val('MOT DE PASSE NON VALIDE')
-		.fadeOut(2000, function() {
-			$(this)
-				.prop('type', 'password')
-				.val('')
-				.removeAttr("style");
-		});
+	.prop('type', 'text')
+	.css("color", "red")
+	.val('MOT DE PASSE NON VALIDE')
+	.fadeOut(2000, function() {
+		$(this)
+		.prop('type', 'password')
+		.val('')
+		.removeAttr("style");
+	});
 
 	$("#1, #2, #3, #4, #5, #6, #7, #8, #9, #0").on("click", function() {
 		$('#login-input').stop(true, true)

@@ -10,7 +10,7 @@ var timet = 5000;
 var configurationFile = './config.json';
 var configuration = JSON.parse(
     fs.readFileSync(configurationFile)
-);
+    );
 var idDay = configuration.idDay;
 var nameetab = configuration.Nom;
 var date1 = new Date(configuration.date);
@@ -34,9 +34,9 @@ thread.emit('giveMeTheFibo', timet);
 //Listener for the 'theFiboIs' events emitted by the child/background thread. 
 thread.on('theFiboIs', function cb(data) {
     //sleep(5000);
-    console.log("thread");
+    //console.log("thread");
     checkdate();
-    console.log("j'ai passé");
+    //console.log("j'ai passé");
     this.emit('giveMeTheFibo', "ok");
 });
 
@@ -120,7 +120,7 @@ app.use(express.static(__dirname + '/client'));
 var savedataFile = 'savedata.json';
 var savedata = JSON.parse(
     fs.readFileSync(savedataFile)
-);
+    );
 /*
 for (var i = 0; i < savedata.famille1.product.length; i++) {
     console.log(savedata.famille1.product[i].name + "Couleur : " + savedata.famille1.product[i].color);
@@ -169,7 +169,7 @@ famille8 = savedata.famille8;
 var userFile = 'user.json';
 var userData = JSON.parse(
     fs.readFileSync(userFile)
-);
+    );
 
 var user = [];
 
@@ -203,17 +203,17 @@ io.on('connection', function(socket) {
 
         switch (famille) {
             case 1:
-                var rand = Math.floor(Math.random() * 1000000) + 150;
-                var check1 = false;
-                while (check1 != true) {
-                    for (var i = 0; i < famille1.product.length; i++) {
-                        if (famille1.product[i].id == rand) {
-                            rand = Math.floor(Math.random() * 1000000) + 150;
-                        }
+            var rand = Math.floor(Math.random() * 1000000) + 150;
+            var check1 = false;
+            while (check1 != true) {
+                for (var i = 0; i < famille1.product.length; i++) {
+                    if (famille1.product[i].id == rand) {
+                        rand = Math.floor(Math.random() * 1000000) + 150;
                     }
-                    var check2 = false
-                    for (var i = 0; i < famille1.product.length; i++) {
-                        if (famille1.product[i].id == rand) {
+                }
+                var check2 = false
+                for (var i = 0; i < famille1.product.length; i++) {
+                    if (famille1.product[i].id == rand) {
                             //rand = Math.floor(Math.random() * 1000000) + 150; 
                             check2 = true;
                         }
@@ -230,7 +230,7 @@ io.on('connection', function(socket) {
                 };
                 famille1.product.push(art);
                 break;
-            case 2:
+                case 2:
                 var rand = Math.floor(Math.random() * 1000000) + 150;
                 var check1 = false;
                 while (check1 != true) {
@@ -258,7 +258,7 @@ io.on('connection', function(socket) {
                 };
                 famille2.product.push(art);
                 break;
-            case 3:
+                case 3:
                 var rand = Math.floor(Math.random() * 1000000) + 150;
                 var check1 = false;
                 while (check1 != true) {
@@ -286,7 +286,7 @@ io.on('connection', function(socket) {
                 };
                 famille3.product.push(art);
                 break;
-            case 4:
+                case 4:
                 var rand = Math.floor(Math.random() * 1000000) + 150;
                 var check1 = false;
                 while (check1 != true) {
@@ -314,7 +314,7 @@ io.on('connection', function(socket) {
                 };
                 famille4.product.push(art);
                 break;
-            case 5:
+                case 5:
                 var rand = Math.floor(Math.random() * 1000000) + 150;
                 var check1 = false;
                 while (check1 != true) {
@@ -342,7 +342,7 @@ io.on('connection', function(socket) {
                 };
                 famille5.product.push(art);
                 break;
-            case 6:
+                case 6:
                 var rand = Math.floor(Math.random() * 1000000) + 150;
                 var check1 = false;
                 while (check1 != true) {
@@ -370,7 +370,7 @@ io.on('connection', function(socket) {
                 };
                 famille6.product.push(art);
                 break;
-            case 7:
+                case 7:
                 var rand = Math.floor(Math.random() * 1000000) + 150;
                 var check1 = false;
                 while (check1 != true) {
@@ -398,7 +398,7 @@ io.on('connection', function(socket) {
                 };
                 famille7.product.push(art);
                 break;
-            case 8:
+                case 8:
                 var rand = Math.floor(Math.random() * 1000000) + 150;
                 var check1 = false;
                 while (check1 != true) {
@@ -427,584 +427,579 @@ io.on('connection', function(socket) {
                 famille8.product.push(art);
                 break;
 
-        }
-
-        var objWithSubObj = {
-            famille1: famille1,
-            famille2: famille2,
-            famille3: famille3,
-            famille4: famille4,
-            famille5: famille5,
-            famille6: famille6,
-            famille7: famille7,
-            famille8: famille8
-        };
-
-
-        var data = JSON.stringify(objWithSubObj);
-        fs.writeFile('savedata.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
             }
+
+            var objWithSubObj = {
+                famille1: famille1,
+                famille2: famille2,
+                famille3: famille3,
+                famille4: famille4,
+                famille5: famille5,
+                famille6: famille6,
+                famille7: famille7,
+                famille8: famille8
+            };
+
+
+            var data = JSON.stringify(objWithSubObj);
+            fs.writeFile('savedata.json', data, function(err) {
+                if (err) {
+                    console.log('There has been an error saving your configuration data.');
+                    console.log(err.message);
+                    return;
+                }
             //console.log('Saved successfully.')
         });
 
+            send();
 
+        });
 
-        console.log("Article ajouté : " + famille1.product);
+socket.on('supprimearticle', function(famille, id) {
+    switch (famille) {
+        case 1:
         for (var i = 0; i < famille1.product.length; i++) {
-            console.log(famille1.product[i].name + "Couleur : " + famille1.product[i].color);
-        };
-
-        send();
-
-    });
-
-    socket.on('supprimearticle', function(famille, id) {
-        switch (famille) {
-            case 1:
-                for (var i = 0; i < famille1.product.length; i++) {
-                    if (famille1.product[i].id == id) {
-                        console.log("L'Article " + famille1.product[i].name + "va etre supprimer")
-                        famille1.product.splice(i, 1);
-                    }
-                }
-                break;
-            case 2:
-                for (var i = 0; i < famille2.product.length; i++) {
-                    if (famille2.product[i].id == id) {
-                        console.log("L'Article " + famille2.product[i].name + "va etre supprimer")
-                        famille2.product.splice(i, 1);
-                    }
-                }
-                break;
-            case 3:
-                for (var i = 0; i < famille3.product.length; i++) {
-                    if (famille3.product[i].id == id) {
-                        console.log("L'Article " + famille3.product[i].name + "va etre supprimer")
-                        famille3.product.splice(i, 1);
-                    }
-                }
-                break;
-            case 4:
-                for (var i = 0; i < famille4.product.length; i++) {
-                    if (famille4.product[i].id == id) {
-                        console.log("L'Article " + famille4.product[i].name + "va etre supprimer")
-                        famille4.product.splice(i, 1);
-                    }
-                }
-                break;
-            case 5:
-                for (var i = 0; i < famille5.product.length; i++) {
-                    if (famille5.product[i].id == id) {
-                        console.log("L'Article " + famille5.product[i].name + "va etre supprimer")
-                        famille5.product.splice(i, 1);
-                    }
-                }
-                break;
-            case 6:
-                for (var i = 0; i < famille6.product.length; i++) {
-                    if (famille6.product[i].id == id) {
-                        console.log("L'Article " + famille6.product[i].name + "va etre supprimer")
-                        famille6.product.splice(i, 1);
-                    }
-                }
-                break;
-            case 7:
-                for (var i = 0; i < famille7.product.length; i++) {
-                    if (famille7.product[i].id == id) {
-                        console.log("L'Article " + famille7.product[i].name + "va etre supprimer")
-                        famille7.product.splice(i, 1);
-                    }
-                }
-                break;
-            case 8:
-                for (var i = 0; i < famille8.product.length; i++) {
-                    if (famille8.product[i].id == id) {
-                        console.log("L'Article " + famille8.product[i].name + "va etre supprimer")
-                        famille8.product.splice(i, 1);
-                    }
-                }
-                break;
-        }
-        var objWithSubObj = {
-            famille1: famille1,
-            famille2: famille2,
-            famille3: famille3,
-            famille4: famille4,
-            famille5: famille5,
-            famille6: famille6,
-            famille7: famille7,
-            famille8: famille8
-        };
-
-
-        var data = JSON.stringify(objWithSubObj);
-        fs.writeFile('savedata.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
+            if (famille1.product[i].id == id) {
+                console.log("L'Article " + famille1.product[i].name + "va etre supprimer")
+                famille1.product.splice(i, 1);
             }
+        }
+        break;
+        case 2:
+        for (var i = 0; i < famille2.product.length; i++) {
+            if (famille2.product[i].id == id) {
+                console.log("L'Article " + famille2.product[i].name + "va etre supprimer")
+                famille2.product.splice(i, 1);
+            }
+        }
+        break;
+        case 3:
+        for (var i = 0; i < famille3.product.length; i++) {
+            if (famille3.product[i].id == id) {
+                console.log("L'Article " + famille3.product[i].name + "va etre supprimer")
+                famille3.product.splice(i, 1);
+            }
+        }
+        break;
+        case 4:
+        for (var i = 0; i < famille4.product.length; i++) {
+            if (famille4.product[i].id == id) {
+                console.log("L'Article " + famille4.product[i].name + "va etre supprimer")
+                famille4.product.splice(i, 1);
+            }
+        }
+        break;
+        case 5:
+        for (var i = 0; i < famille5.product.length; i++) {
+            if (famille5.product[i].id == id) {
+                console.log("L'Article " + famille5.product[i].name + "va etre supprimer")
+                famille5.product.splice(i, 1);
+            }
+        }
+        break;
+        case 6:
+        for (var i = 0; i < famille6.product.length; i++) {
+            if (famille6.product[i].id == id) {
+                console.log("L'Article " + famille6.product[i].name + "va etre supprimer")
+                famille6.product.splice(i, 1);
+            }
+        }
+        break;
+        case 7:
+        for (var i = 0; i < famille7.product.length; i++) {
+            if (famille7.product[i].id == id) {
+                console.log("L'Article " + famille7.product[i].name + "va etre supprimer")
+                famille7.product.splice(i, 1);
+            }
+        }
+        break;
+        case 8:
+        for (var i = 0; i < famille8.product.length; i++) {
+            if (famille8.product[i].id == id) {
+                console.log("L'Article " + famille8.product[i].name + "va etre supprimer")
+                famille8.product.splice(i, 1);
+            }
+        }
+        break;
+    }
+    var objWithSubObj = {
+        famille1: famille1,
+        famille2: famille2,
+        famille3: famille3,
+        famille4: famille4,
+        famille5: famille5,
+        famille6: famille6,
+        famille7: famille7,
+        famille8: famille8
+    };
+
+
+    var data = JSON.stringify(objWithSubObj);
+    fs.writeFile('savedata.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
             //console.log('Saved successfully.')
         });
-        send();
+    send();
 
-    });
+});
 
-    socket.on('modifierarticle', function(famille, id, nom, color) {
-        switch (famille) {
-            case 1:
-                for (var i = 0; i < famille1.product.length; i++) {
-                    if (famille1.product[i].id == id) {
-                        console.log("L'Article " + famille1.product[i].name + "de couleur " + famille1.product[i].color + " va etre modifier");
-                        famille1.product[i].name = nom;
-                        famille1.product[i].color = color;
-                        console.log("Article  modifier" + famille1.product[i].name + "de couleur " + famille1.product[i].color);
-                    }
-                }
-                break;
-            case 2:
-                for (var i = 0; i < famille2.product.length; i++) {
-                    if (famille2.product[i].id == id) {
-                        console.log("L'Article " + famille2.product[i].name + "de couleur " + famille2.product[i].color + " va etre modifier");
-                        famille2.product[i].name = nom;
-                        famille2.product[i].color = color;
-                        console.log("Article  modifier" + famille2.product[i].name + "de couleur " + famille2.product[i].color);
-                    }
-                }
-                break;
-            case 3:
-                for (var i = 0; i < famille3.product.length; i++) {
-                    if (famille3.product[i].id == id) {
-                        console.log("L'Article " + famille3.product[i].name + "de couleur " + famille3.product[i].color + " va etre modifier");
-                        famille3.product[i].name = nom;
-                        famille3.product[i].color = color;
-                        console.log("Article  modifier" + famille3.product[i].name + "de couleur " + famille3.product[i].color);
-                    }
-                }
-                break;
-            case 4:
-                for (var i = 0; i < famille4.product.length; i++) {
-                    if (famille4.product[i].id == id) {
-                        console.log("L'Article " + famille4.product[i].name + "de couleur " + famille4.product[i].color + " va etre modifier");
-                        famille4.product[i].name = nom;
-                        famille4.product[i].color = color;
-                        console.log("Article  modifier" + famille4.product[i].name + "de couleur " + famille4.product[i].color);
-                    }
-                }
-                break;
-            case 5:
-                for (var i = 0; i < famille5.product.length; i++) {
-                    if (famille5.product[i].id == id) {
-                        console.log("L'Article " + famille5.product[i].name + "de couleur " + famille5.product[i].color + " va etre modifier");
-                        famille6.product[i].name = nom;
-                        famille6.product[i].color = color;
-                        console.log("Article  modifier" + famille5.product[i].name + "de couleur " + famille5.product[i].color);
-                    }
-                }
-                break;
-            case 6:
-                for (var i = 0; i < famille6.product.length; i++) {
-                    if (famille6.product[i].id == id) {
-                        console.log("L'Article " + famille6.product[i].name + "de couleur " + famille6.product[i].color + " va etre modifier");
-                        famille6.product[i].name = nom;
-                        famille6.product[i].color = color;
-                        console.log("Article  modifier" + famille6.product[i].name + "de couleur " + famille6.product[i].color);
-                    }
-                }
-                break;
-            case 7:
-                for (var i = 0; i < famille7.product.length; i++) {
-                    if (famille7.product[i].id == id) {
-                        console.log("L'Article " + famille7.product[i].name + "de couleur " + famille7.product[i].color + " va etre modifier");
-                        famille7.product[i].name = nom;
-                        famille7.product[i].color = color;
-                        console.log("Article  modifier" + famille7.product[i].name + "de couleur " + famille7.product[i].color);
-                    }
-                }
-                break;
-            case 8:
-                for (var i = 0; i < famille8.product.length; i++) {
-                    if (famille8.product[i].id == id) {
-                        console.log("L'Article " + famille8.product[i].name + "de couleur " + famille8.product[i].color + " va etre modifier");
-                        famille8.product[i].name = nom;
-                        famille8.product[i].color = color;
-                        console.log("Article  modifier" + famille8.product[i].name + "de couleur " + famille8.product[i].color);
-                    }
-                }
-                break;
-        }
-        var objWithSubObj = {
-            famille1: famille1,
-            famille2: famille2,
-            famille3: famille3,
-            famille4: famille4,
-            famille5: famille5,
-            famille6: famille6,
-            famille7: famille7,
-            famille8: famille8
-        };
-
-
-        var data = JSON.stringify(objWithSubObj);
-        fs.writeFile('savedata.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
+socket.on('modifierarticle', function(famille, id, nom, color) {
+    switch (famille) {
+        case 1:
+        for (var i = 0; i < famille1.product.length; i++) {
+            if (famille1.product[i].id == id) {
+                console.log("L'Article " + famille1.product[i].name + "de couleur " + famille1.product[i].color + " va etre modifier");
+                famille1.product[i].name = nom;
+                famille1.product[i].color = color;
+                console.log("Article  modifier" + famille1.product[i].name + "de couleur " + famille1.product[i].color);
             }
+        }
+        break;
+        case 2:
+        for (var i = 0; i < famille2.product.length; i++) {
+            if (famille2.product[i].id == id) {
+                console.log("L'Article " + famille2.product[i].name + "de couleur " + famille2.product[i].color + " va etre modifier");
+                famille2.product[i].name = nom;
+                famille2.product[i].color = color;
+                console.log("Article  modifier" + famille2.product[i].name + "de couleur " + famille2.product[i].color);
+            }
+        }
+        break;
+        case 3:
+        for (var i = 0; i < famille3.product.length; i++) {
+            if (famille3.product[i].id == id) {
+                console.log("L'Article " + famille3.product[i].name + "de couleur " + famille3.product[i].color + " va etre modifier");
+                famille3.product[i].name = nom;
+                famille3.product[i].color = color;
+                console.log("Article  modifier" + famille3.product[i].name + "de couleur " + famille3.product[i].color);
+            }
+        }
+        break;
+        case 4:
+        for (var i = 0; i < famille4.product.length; i++) {
+            if (famille4.product[i].id == id) {
+                console.log("L'Article " + famille4.product[i].name + "de couleur " + famille4.product[i].color + " va etre modifier");
+                famille4.product[i].name = nom;
+                famille4.product[i].color = color;
+                console.log("Article  modifier" + famille4.product[i].name + "de couleur " + famille4.product[i].color);
+            }
+        }
+        break;
+        case 5:
+        for (var i = 0; i < famille5.product.length; i++) {
+            if (famille5.product[i].id == id) {
+                console.log("L'Article " + famille5.product[i].name + "de couleur " + famille5.product[i].color + " va etre modifier");
+                famille6.product[i].name = nom;
+                famille6.product[i].color = color;
+                console.log("Article  modifier" + famille5.product[i].name + "de couleur " + famille5.product[i].color);
+            }
+        }
+        break;
+        case 6:
+        for (var i = 0; i < famille6.product.length; i++) {
+            if (famille6.product[i].id == id) {
+                console.log("L'Article " + famille6.product[i].name + "de couleur " + famille6.product[i].color + " va etre modifier");
+                famille6.product[i].name = nom;
+                famille6.product[i].color = color;
+                console.log("Article  modifier" + famille6.product[i].name + "de couleur " + famille6.product[i].color);
+            }
+        }
+        break;
+        case 7:
+        for (var i = 0; i < famille7.product.length; i++) {
+            if (famille7.product[i].id == id) {
+                console.log("L'Article " + famille7.product[i].name + "de couleur " + famille7.product[i].color + " va etre modifier");
+                famille7.product[i].name = nom;
+                famille7.product[i].color = color;
+                console.log("Article  modifier" + famille7.product[i].name + "de couleur " + famille7.product[i].color);
+            }
+        }
+        break;
+        case 8:
+        for (var i = 0; i < famille8.product.length; i++) {
+            if (famille8.product[i].id == id) {
+                console.log("L'Article " + famille8.product[i].name + "de couleur " + famille8.product[i].color + " va etre modifier");
+                famille8.product[i].name = nom;
+                famille8.product[i].color = color;
+                console.log("Article  modifier" + famille8.product[i].name + "de couleur " + famille8.product[i].color);
+            }
+        }
+        break;
+    }
+    var objWithSubObj = {
+        famille1: famille1,
+        famille2: famille2,
+        famille3: famille3,
+        famille4: famille4,
+        famille5: famille5,
+        famille6: famille6,
+        famille7: famille7,
+        famille8: famille8
+    };
+
+
+    var data = JSON.stringify(objWithSubObj);
+    fs.writeFile('savedata.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
             //console.log('Saved successfully.')
         });
-        send();
-    });
+    send();
+});
 
-    socket.on('ajoutfamille', function(name, color, pichet) {
-        var tab = [];
-        tab.push(famille1);
-        tab.push(famille2);
-        tab.push(famille3);
-        tab.push(famille4);
-        tab.push(famille5);
-        tab.push(famille6);
-        tab.push(famille7);
-        tab.push(famille8);
-        var check = true;
-        for (var i = 0; i < tab.length; i++) {
-            console.log("Libre : " + tab[i].libre);
-            if (check == true) {
-                if (tab[i].libre == true) {
-                    check = false;
-                    tab[i].name = name;
-                    tab[i].color = color;
-                    tab[i].pichets = pichet;
-                    tab[i].libre = false;
-                    socket.emit('okajoutfamille');
-                } else {
-                    if (i == 7) {
-                        console.log("Erreur ajout famille");
-                        socket.emit('erreurajoutfamille');
-                    }
-                }
-            }
-
-        }
-        var objWithSubObj = {
-            famille1: famille1,
-            famille2: famille2,
-            famille3: famille3,
-            famille4: famille4,
-            famille5: famille5,
-            famille6: famille6,
-            famille7: famille7,
-            famille8: famille8
-        };
-
-
-        var data = JSON.stringify(objWithSubObj);
-        fs.writeFile('savedata.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
-            }
-            //console.log('Saved successfully.')
-        });
-        send();
-    });
-
-
-    socket.on('envoifamille', function(name, color, pichet) {
-
-        var objWithSubObj = {
-            famille1: famille1,
-            famille2: famille2,
-            famille3: famille3,
-            famille4: famille4,
-            famille5: famille5,
-            famille6: famille6,
-            famille7: famille7,
-            famille8: famille8
-        };
-        io.sockets.emit('listefamille', objWithSubObj);
-    });
-
-    socket.on('modifierfamille', function(famille, name, color, pichet) {
-        var tab = [];
-        tab.push(famille1);
-        tab.push(famille2);
-        tab.push(famille3);
-        tab.push(famille4);
-        tab.push(famille5);
-        tab.push(famille6);
-        tab.push(famille7);
-        tab.push(famille8);
-        var check = true;
-        for (var i = 0; i < tab.length; i++) {
-            if (tab[i].id == famille) {
+socket.on('ajoutfamille', function(name, color, pichet) {
+    var tab = [];
+    tab.push(famille1);
+    tab.push(famille2);
+    tab.push(famille3);
+    tab.push(famille4);
+    tab.push(famille5);
+    tab.push(famille6);
+    tab.push(famille7);
+    tab.push(famille8);
+    var check = true;
+    for (var i = 0; i < tab.length; i++) {
+        console.log("Libre : " + tab[i].libre);
+        if (check == true) {
+            if (tab[i].libre == true) {
+                check = false;
                 tab[i].name = name;
                 tab[i].color = color;
                 tab[i].pichets = pichet;
+                tab[i].libre = false;
+                socket.emit('okajoutfamille');
+            } else {
+                if (i == 7) {
+                    console.log("Erreur ajout famille");
+                    socket.emit('erreurajoutfamille');
+                }
             }
         }
-        var objWithSubObj = {
-            famille1: famille1,
-            famille2: famille2,
-            famille3: famille3,
-            famille4: famille4,
-            famille5: famille5,
-            famille6: famille6,
-            famille7: famille7,
-            famille8: famille8
-        };
 
-
-        var data = JSON.stringify(objWithSubObj);
-        fs.writeFile('savedata.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
-            }
-            //console.log('Saved successfully.')
-        });
-        send();
-    });
-
-    socket.on('supprimerfamille', function(famille) {
-        var tab = [];
-        tab.push(famille1);
-        tab.push(famille2);
-        tab.push(famille3);
-        tab.push(famille4);
-        tab.push(famille5);
-        tab.push(famille6);
-        tab.push(famille7);
-        tab.push(famille8);
-        var check = true;
-        for (var i = 0; i < tab.length; i++) {
-            if (tab[i].id == famille) {
-                tab[i].name = "...";
-                tab[i].color = 0;
-                tab[i].pichets = 0;
-                tab[i].libre = true;
-                tab[i].product = [];
-                console.log("Famille supprimer");
-            }
-        }
-        var objWithSubObj = {
-            famille1: famille1,
-            famille2: famille2,
-            famille3: famille3,
-            famille4: famille4,
-            famille5: famille5,
-            famille6: famille6,
-            famille7: famille7,
-            famille8: famille8
-        };
-
-
-        var data = JSON.stringify(objWithSubObj);
-        fs.writeFile('savedata.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
-            }
-            //console.log('Saved successfully.')
-        });
-        send();
-
-    });
-
-    socket.on('receiveclick', function(famille, id) {
-        console.log("Click reçu :" + id + "de la famille : " + famille);
-        switch (famille) {
-            case 1:
-                for (var i = 0; i < famille1.product.length; i++) {
-                    if (famille1.product[i].id == id) {
-                        print(famille1.product[i].name, famille1.pichets);
-
-                    }
-                }
-                break;
-            case 2:
-                for (var i = 0; i < famille2.product.length; i++) {
-                    if (famille2.product[i].id == id) {
-                        print(famille2.product[i].name, famille2.pichets);
-                    }
-                }
-                break;
-            case 3:
-                for (var i = 0; i < famille3.product.length; i++) {
-                    if (famille3.product[i].id == id) {
-                        print(famille3.product[i].name, famille3.pichets);
-                    }
-                }
-                break;
-            case 4:
-                for (var i = 0; i < famille4.product.length; i++) {
-                    if (famille4.product[i].id == id) {
-                        print(famille4.product[i].name, famille4.pichets);
-                    }
-                }
-                break;
-            case 5:
-                for (var i = 0; i < famille5.product.length; i++) {
-                    if (famille5.product[i].id == id) {
-                        print(famille5.product[i].name, famille5.pichets);
-                    }
-                }
-                break;
-            case 6:
-                for (var i = 0; i < famille6.product.length; i++) {
-                    if (famille6.product[i].id == id) {
-                        print(famille6.product[i].name, famille6.pichets);
-                    }
-                }
-                break;
-            case 7:
-                for (var i = 0; i < famille7.product.length; i++) {
-                    if (famille7.product[i].id == id) {
-                        print(famille7.product[i].name, famille7.pichets);
-                    }
-                }
-                break;
-            case 8:
-                for (var i = 0; i < famille8.product.length; i++) {
-                    if (famille8.product[i].id == id) {
-                        print(famille8.product[i].name, famille8.pichets);
-                    }
-                }
-                break;
-        }
-    });
-
-
-    function print(nomproduit, nbpichet) {
-        console.log("Impression : " + nomproduit + " Nombre pichet : " + nbpichet + " Nom d'établissement : " + nameetab);
     }
+    var objWithSubObj = {
+        famille1: famille1,
+        famille2: famille2,
+        famille3: famille3,
+        famille4: famille4,
+        famille5: famille5,
+        famille6: famille6,
+        famille7: famille7,
+        famille8: famille8
+    };
 
-    socket.on('verifutilisateur', function(users, mdp) {
-        var check = false;
-        for (var i = 0; i < user.length; i++) {
-            if (user[i].user == users && user[i].password == mdp) {
-                console.log("Verification pour : " + users);
-                check = true;
+
+    var data = JSON.stringify(objWithSubObj);
+    fs.writeFile('savedata.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
+            //console.log('Saved successfully.')
+        });
+    send();
+});
+
+
+socket.on('envoifamille', function() {
+ console.log("Je rentre dans la fonction")
+ var tab = [];
+ tab.push(famille1);
+ tab.push(famille2);
+ tab.push(famille3);
+ tab.push(famille4);
+ tab.push(famille5);
+ tab.push(famille6);
+ tab.push(famille7);
+ tab.push(famille8);
+ for (var i = 0; i < tab.length; i++) {
+    console.log(tab[i]);
+};
+socket.emit('listefamille', tab);
+});
+
+socket.on('modifierfamille', function(famille, name, color, pichet) {
+    var tab = [];
+    tab.push(famille1);
+    tab.push(famille2);
+    tab.push(famille3);
+    tab.push(famille4);
+    tab.push(famille5);
+    tab.push(famille6);
+    tab.push(famille7);
+    tab.push(famille8);
+    var check = true;
+    for (var i = 0; i < tab.length; i++) {
+        if (tab[i].id == famille) {
+            tab[i].name = name;
+            tab[i].color = color;
+            tab[i].pichets = pichet;
+        }
+    }
+    var objWithSubObj = {
+        famille1: famille1,
+        famille2: famille2,
+        famille3: famille3,
+        famille4: famille4,
+        famille5: famille5,
+        famille6: famille6,
+        famille7: famille7,
+        famille8: famille8
+    };
+
+
+    var data = JSON.stringify(objWithSubObj);
+    fs.writeFile('savedata.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
+            //console.log('Saved successfully.')
+        });
+    send();
+});
+
+socket.on('supprimerfamille', function(famille) {
+    var tab = [];
+    tab.push(famille1);
+    tab.push(famille2);
+    tab.push(famille3);
+    tab.push(famille4);
+    tab.push(famille5);
+    tab.push(famille6);
+    tab.push(famille7);
+    tab.push(famille8);
+    var check = true;
+    for (var i = 0; i < tab.length; i++) {
+        if (tab[i].id == famille) {
+            tab[i].name = "...";
+            tab[i].color = 0;
+            tab[i].pichets = 0;
+            tab[i].libre = true;
+            tab[i].product = [];
+            console.log("Famille supprimer");
+        }
+    }
+    var objWithSubObj = {
+        famille1: famille1,
+        famille2: famille2,
+        famille3: famille3,
+        famille4: famille4,
+        famille5: famille5,
+        famille6: famille6,
+        famille7: famille7,
+        famille8: famille8
+    };
+
+
+    var data = JSON.stringify(objWithSubObj);
+    fs.writeFile('savedata.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
+            //console.log('Saved successfully.')
+        });
+    send();
+
+});
+
+socket.on('receiveclick', function(famille, id) {
+    console.log("Click reçu :" + id + "de la famille : " + famille);
+    switch (famille) {
+        case 1:
+        for (var i = 0; i < famille1.product.length; i++) {
+            if (famille1.product[i].id == id) {
+                print(famille1.product[i].name, famille1.pichets);
+
             }
         }
-        if (check == true) {
-            console.log("Auth ok");
-            socket.emit('authok');
-        } else {
-            console.log("Erreur utilisateur");
-            socket.emit('authfalse');
-        }
-    });
-
-    socket.on('modifierutilisateur', function(users, mdp, newname, droit) {
-        for (var i = 0; i < user.length; i++) {
-            if (user[i].user == users) {
-                console.log("Modification pour : " + users);
-                user[i].user = newname;
-                user[i].password = mdp;
-                user[i].droit = droit;
+        break;
+        case 2:
+        for (var i = 0; i < famille2.product.length; i++) {
+            if (famille2.product[i].id == id) {
+                print(famille2.product[i].name, famille2.pichets);
             }
         }
-        var myOptions = {
-            utilisateur: user
-
-        };
-        var data = JSON.stringify(myOptions);
-        fs.writeFile('./user.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
-            }
-            console.log('Configuration saved successfully.')
-        });
-        console.log("Utilisateur supprimé");
-
-    });
-
-    socket.on('ajoututilisateur', function(users, mdp, droit) {
-        var objAddUser = {
-            user: users,
-            password: mdp,
-            droit: droit
-        };
-        user.push(objAddUser);
-        var myOptions = {
-            utilisateur: user
-
-        };
-        var data = JSON.stringify(myOptions);
-        fs.writeFile('./user.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
-            }
-            console.log('Configuration saved successfully.')
-        });
-        console.log("Utilisateur ajouté");
-    });
-
-    socket.on('supprimerutilisateur', function(users) {
-        for (var i = 0; i < user.length; i++) {
-            if (user[i].user == users) {
-                console.log("Utilisateur supprimé" + users);
-                user.splice(i, 1);
+        break;
+        case 3:
+        for (var i = 0; i < famille3.product.length; i++) {
+            if (famille3.product[i].id == id) {
+                print(famille3.product[i].name, famille3.pichets);
             }
         }
-        var myOptions = {
-            utilisateur: user
-
-        };
-        var data = JSON.stringify(myOptions);
-        fs.writeFile('./user.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
+        break;
+        case 4:
+        for (var i = 0; i < famille4.product.length; i++) {
+            if (famille4.product[i].id == id) {
+                print(famille4.product[i].name, famille4.pichets);
             }
-            console.log('Configuration saved successfully.')
-        });
-        console.log("Utilisateur supprimé");
-
-    });
-
-    socket.on('getetab', function() {
-        socket.emit('getetab', nameetab);
-    });
-
-    socket.on('modifierparametre', function(name, hours, minutes) {
-        nameetab = name;
-        var datetemp = new Date();
-        datetemp.setHours(hours);
-        datetemp.setMinutes(minutes);
-        date1 = datetemp;
-        var myOptions = {
-            Nom: name,
-            idDay: idDay,
-            date: date1,
-            heure: hours,
-            minute: minutes
-        };
-        var data = JSON.stringify(myOptions);
-        fs.writeFile('./config.json', data, function(err) {
-            if (err) {
-                console.log('There has been an error saving your configuration data.');
-                console.log(err.message);
-                return;
+        }
+        break;
+        case 5:
+        for (var i = 0; i < famille5.product.length; i++) {
+            if (famille5.product[i].id == id) {
+                print(famille5.product[i].name, famille5.pichets);
             }
-            console.log('Configuration saved successfully.')
-        });
-        console.log("Nouvelle date : " + date1);
+        }
+        break;
+        case 6:
+        for (var i = 0; i < famille6.product.length; i++) {
+            if (famille6.product[i].id == id) {
+                print(famille6.product[i].name, famille6.pichets);
+            }
+        }
+        break;
+        case 7:
+        for (var i = 0; i < famille7.product.length; i++) {
+            if (famille7.product[i].id == id) {
+                print(famille7.product[i].name, famille7.pichets);
+            }
+        }
+        break;
+        case 8:
+        for (var i = 0; i < famille8.product.length; i++) {
+            if (famille8.product[i].id == id) {
+                print(famille8.product[i].name, famille8.pichets);
+            }
+        }
+        break;
+    }
+});
+
+
+function print(nomproduit, nbpichet) {
+    console.log("Impression : " + nomproduit + " Nombre pichet : " + nbpichet + " Nom d'établissement : " + nameetab);
+}
+
+socket.on('verifutilisateur', function(users, mdp) {
+    var check = false;
+    for (var i = 0; i < user.length; i++) {
+        if (user[i].user == users && user[i].password == mdp) {
+            console.log("Verification pour : " + users);
+            check = true;
+        }
+    }
+    if (check == true) {
+        console.log("Auth ok");
+        socket.emit('authok');
+    } else {
+        console.log("Erreur utilisateur");
+        socket.emit('authfalse');
+    }
+});
+
+socket.on('modifierutilisateur', function(users, mdp, newname, droit) {
+    for (var i = 0; i < user.length; i++) {
+        if (user[i].user == users) {
+            console.log("Modification pour : " + users);
+            user[i].user = newname;
+            user[i].password = mdp;
+            user[i].droit = droit;
+        }
+    }
+    var myOptions = {
+        utilisateur: user
+
+    };
+    var data = JSON.stringify(myOptions);
+    fs.writeFile('./user.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
+        console.log('Configuration saved successfully.')
     });
+    console.log("Utilisateur supprimé");
+
+});
+
+socket.on('ajoututilisateur', function(users, mdp, droit) {
+    var objAddUser = {
+        user: users,
+        password: mdp,
+        droit: droit
+    };
+    user.push(objAddUser);
+    var myOptions = {
+        utilisateur: user
+
+    };
+    var data = JSON.stringify(myOptions);
+    fs.writeFile('./user.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
+        console.log('Configuration saved successfully.')
+    });
+    console.log("Utilisateur ajouté");
+});
+
+socket.on('supprimerutilisateur', function(users) {
+    for (var i = 0; i < user.length; i++) {
+        if (user[i].user == users) {
+            console.log("Utilisateur supprimé" + users);
+            user.splice(i, 1);
+        }
+    }
+    var myOptions = {
+        utilisateur: user
+
+    };
+    var data = JSON.stringify(myOptions);
+    fs.writeFile('./user.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
+        console.log('Configuration saved successfully.')
+    });
+    console.log("Utilisateur supprimé");
+
+});
+
+socket.on('getetab', function() {
+    socket.emit('getetab', nameetab);
+});
+
+socket.on('modifierparametre', function(name, hours, minutes) {
+    nameetab = name;
+    var datetemp = new Date();
+    datetemp.setHours(hours);
+    datetemp.setMinutes(minutes);
+    date1 = datetemp;
+    var myOptions = {
+        Nom: name,
+        idDay: idDay,
+        date: date1,
+        heure: hours,
+        minute: minutes
+    };
+    var data = JSON.stringify(myOptions);
+    fs.writeFile('./config.json', data, function(err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
+        console.log('Configuration saved successfully.')
+    });
+    console.log("Nouvelle date : " + date1);
+});
 
 
 });
@@ -1051,21 +1046,17 @@ function checkdate() {
     var one_day = 1000 * 60 * 60 * 24;
     //new Date(year, month, day, hours, minutes, seconds, milliseconds)
     //var date1 = new Date(2015, 1, 1, 14, 00, 00, 0);
-    console.log("etape 1");
     var date2 = new Date();
 
     // Convert both dates to milliseconds
-    console.log("etape 1,5");
     var date1_ms = date1.getTime();
-    console.log("etape 1,6");
     var date2_ms = date2.getTime();
 
-    console.log("etape 2");
+
     // Calculate the difference in milliseconds
     var difference_ms = date2_ms - date1_ms;
 
     // Convert back to days and return
-    console.log("Diiférence : " + difference_ms / one_day);
     if (difference_ms / one_day >= 0) {
         console.log("Jour dépassé...");
         console.log("Date d'avant : " + date1);
@@ -1075,10 +1066,8 @@ function checkdate() {
         console.log("minute" + minute);
         date1.setHours(heure);
         date1.setMinutes(minute);
-
-        console.log("Nouvelle date : " + date1);
         createRamdomID();
     } else {
-        console.log("Même jour...");
+
     }
 }

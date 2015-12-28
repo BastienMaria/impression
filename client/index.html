@@ -70,7 +70,7 @@
           <h3>Creation</h3>
           <ul data-role="listview">
             <li><a href="#add-family">Ajout famille</a></li>
-            <li><a href="#add-product">Ajout article</a></li>
+            <li><a href="#add-product" id="add-art-menu">Ajout article</a></li>
           </ul>
         </div>
       </div>
@@ -119,16 +119,15 @@
     </div>
     <div data-role="content">
       <form id="add-family">
+        <label for="family-choice">Choix famille:</label>
         <div class="ui-field-contain">
           <select id="family-choice" data-native-menu="false">
-            <option>Famille:</option>
-            <option value="serveur">Serveur</option>
-            <option value="manager">Manager</option>
+            <option>Famille</option>
           </select>
         </div>
 
         <label for="textinput">Nom article:</label>
-        <input type="text" name="textinput" id="name" placeholder="" maxlength="15" required="true">
+        <input type="text" name="textinput" id="name-art" placeholder="" maxlength="15" required="true">
 
         <br>
         <label for="mycolor">Couleur d'onglet:</label>
