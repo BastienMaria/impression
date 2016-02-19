@@ -177,21 +177,17 @@
       <h1>Modification famille</h1>
     </div>
     <div data-role="content" id="family-set-content">
-      <!-- <form id="form-family-set"> -->
-
-      <label for="textinput">Nom famille:</label>
-      <input type="text" name="textinput" id="name-set-family" placeholder="" maxlength="15" required="true">
-
-      <label for="pichet">Nombre de pichets:</label>
-      <input type="number" name="number" step="1" value="0" min="0" max="5" id="pichet-set">
-
-      <br>
-      <label for="mycolor-set-family">Couleur de l'onglet:</label>
-      <a href="#color-picker" id="mycolor-set-family" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">&#8239;</a>
-
-      <br>
-      <button type="button" class="ui-shadow ui-btn ui-corner-all" id="btn-set-family">Modifier</button>
-      <!-- </form> -->
+      <form id="form-family-set">
+        <label for="textinput">Nom famille:</label>
+        <input type="text" name="textinput" id="name-set-family" placeholder="" maxlength="15" required="true">
+        <label for="pichet">Nombre de pichets:</label>
+        <input type="number" name="number" step="1" value="0" min="0" max="5" id="pichet-set">
+        <br>
+        <label for="mycolor-set-family">Couleur de l'onglet:</label>
+        <a href="#color-picker" id="mycolor-set-family" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">&#8239;</a>
+        <br>
+        <button type="submit" class="ui-shadow ui-btn ui-corner-all" id="btn-set-family">Modifier</button>
+      </form>
     </div>
     <!-- /content -->
   </div>    
@@ -203,9 +199,11 @@
       <h1>Modification articles</h1>
     </div>
     <div data-role="content">
+
       <label for="family-choice-product-setting">Choix famille:</label>
       <div class="ui-field-contain">
         <select id="family-choice-product-setting" data-native-menu="false">
+          <option></option>
         </select>
       </div>
       <table class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b" data-column-popup-theme="a" data-role="table" id="table-product-setting">

@@ -13,25 +13,25 @@ $(document).on("pageshow", "#functions", function() {
 
 // on main page load refresh header + footer
 $(document).on("pagebeforeshow", "#main-page", function() {
-	$( "#head" ).toolbar( "refresh" );
-	$( "#footer" ).toolbar( "refresh" );
+	$("#head").toolbar("refresh");
+	$("#footer").toolbar("refresh");
 });
 
 //reset form
 $(document).on("pagebeforeshow", "#add-product, #add-family", function() {
 	$('#form-family, #form-product').trigger("reset");
-	$("#form-product-submit").attr('disabled','disabled');
+	$("#form-product-submit").attr('disabled', 'disabled');
 });
 
 
 
 $(document).ready(function() {
 
-	$( "#color-picker" ).enhanceWithin().popup();
+	$("#color-picker").enhanceWithin().popup();
 
 	$(".color-btn").on("click", function() {
 		//get current page "family" or "product"
-		var pageId = $(':mobile-pagecontainer').pagecontainer( "getActivePage" )[0].id;
+		var pageId = $(':mobile-pagecontainer').pagecontainer("getActivePage")[0].id;
 		$("#mycolor-" + pageId).css('background-color', this.value);
 		$("#mycolor-" + pageId).attr("name", this.value);
 		$("#color-picker").popup("close");
@@ -45,36 +45,42 @@ $(document).ready(function() {
 		}, 'slow');
 	});
 
-	$( "#form-family" ).submit(function( event ) {
-		var familyName = $( "#name" ).val();
-		var pichet = $( "#pichet" ).val();
-		var color = $( "#mycolor-add-family" ).attr("name");
+	$("#form-family").submit(function(event) {
+		var familyName = $("#name").val();
+		var pichet = $("#pichet").val();
+		var color = $("#mycolor-add-family").attr("name");
 		socket.emit('ajoutfamille', familyName, color, pichet);
 		$('#main-nav').empty();
-		$.mobile.changePage( "#main-page", { transition: "slidefade", changeHash: true });
+		$.mobile.changePage("#functions", {
+			transition: "slidefade",
+			changeHash: true
+		});
 		$("#mycolor-add-family").css('background-color', "white");
 		$("#mycolor-add-family").attr("name", "white");
 		event.preventDefault();
-	});	
+	});
 
-	$( "#form-product" ).submit(function( event ) {
-		var familyId = parseInt($( "#family-choice" ).val(), 10);
-		var productName = $( "#name-art" ).val();
-		var color = $( "#mycolor-add-product" ).attr("name");
+	$("#form-product").submit(function(event) {
+		var familyId = parseInt($("#family-choice").val(), 10);
+		var productName = $("#name-art").val();
+		var color = $("#mycolor-add-product").attr("name");
 		socket.emit('ajoutarticle', familyId, productName, color);
 		$('#main-nav').empty();
-		$.mobile.changePage( "#main-page", { transition: "slidefade", changeHash: true });
+		$.mobile.changePage("#functions", {
+			transition: "slidefade",
+			changeHash: true
+		});
 		$("#mycolor-add-product").css('background-color', "white");
 		$("#mycolor-add-product").attr("name", "white");
 		event.preventDefault();
 	});
 
-	$("#add-product-menu, #set-product-menu").on("click", function(){
+	$("#add-product-menu, #set-product-menu").on("click", function() {
 		$('#product-content').empty();
 		socket.emit('envoifamille');
 	});
 
-	$("#btn-param-family").on("click", function(){
+	$("#btn-param-family").on("click", function() {
 		socket.emit('invoquereceive');
 	});
 
@@ -90,7 +96,7 @@ $(document).ready(function() {
 		// get id of selected option as global
 		familyIdGlobal = $(this).val();
 		familyIdGlobal = parseInt(familyIdGlobal, 10);
-		socket.emit('getproductonid',familyIdGlobal);
+		socket.emit('getproductonid', familyIdGlobal);
 	});
 
 });
@@ -115,20 +121,24 @@ $(document).ajaxComplete(function() {
 $(window).on('load', function() {
 	$(this).trigger('resize');
 	$("#main-content").trigger('resize');
-	$( "#footer" ).toolbar( "refresh" );
-	$( "#head" ).toolbar( "refresh" );
+	$("#footer").toolbar("refresh");
+	$("#head").toolbar("refresh");
 });
 
 socket.on('erreurajoutfamille', function(data) {
-	
+
 	$('#main-nav').empty();
-	setTimeout(function(){ $('#error-add-family').popup( "open"); }, 500);
-	setTimeout(function(){ $('#error-add-family').popup( "close"); }, 1300);
+	setTimeout(function() {
+		$('#error-add-family').popup("open");
+	}, 500);
+	setTimeout(function() {
+		$('#error-add-family').popup("close");
+	}, 1300);
 
 });
 
 socket.on('receive', function(data) {
-	if ($('#main-nav').length){
+	if ($('#main-nav').length) {
 		$('#main-nav').remove();
 	}
 	// $('#main-nav').empty();
@@ -145,7 +155,7 @@ socket.on('receive', function(data) {
 		};
 		htmlData.push(obj)
 	}
-	htmlData.sort(function (a, b) {
+	htmlData.sort(function(a, b) {
 		if (a.empty)
 			return 1;
 		if (a.empty == false)
@@ -162,12 +172,15 @@ socket.on('listefamille', function(data) {
 	$("#family-choice, #family-choice-product-setting").append($('<option>'));
 
 	for (var i = 0; i < data.length; i++) {
-		if(!data[i].libre){
-			$("#family-choice, #family-choice-product-setting").append($('<option>', {value:data[i].id, text:data[i].name}));
+		if (!data[i].libre) {
+			$("#family-choice, #family-choice-product-setting").append($('<option>', {
+				value: data[i].id,
+				text: data[i].name
+			}));
 		}
 	};
 	$("#family-choice-product-setting").selectmenu().selectmenu("refresh", true);
-	$("#family-choice, #family-choice-product-setting").selectmenu("refresh", true);
+	// $("#family-choice, #family-choice-product-setting").selectmenu("refresh", true);
 });
 
 // ######################## FUNCTIONS ########################
@@ -177,20 +190,18 @@ function appendNavbar(data) {
 
 	var nav = '<div data-role="navbar" id="main-nav"><ul id="first-ul">'
 	for (var i = 0; i < 4; i++) {
-		if(!data[i].empty){
-			nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].familyColor +';">' + data[i].name + '</a></li>'
-		}
-		else {
-			nav += '<li><a class="ui-disabled" href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].familyColor +';">&#8239;</a></li>'
+		if (!data[i].empty) {
+			nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:' + data[i].familyColor + ';">' + data[i].name + '</a></li>'
+		} else {
+			nav += '<li><a class="ui-disabled" href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:' + data[i].familyColor + ';">&#8239;</a></li>'
 		}
 	}
 	nav += '</ul><ul>'
 	for (var i = 4; i < data.length; i++) {
-		if(!data[i].empty){
-			nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].familyColor +';">' + data[i].name + '</a></li>'
-		}
-		else{
-			nav += '<li><a class="ui-disabled" href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].familyColor +';">&#8239;</a></li>'
+		if (!data[i].empty) {
+			nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:' + data[i].familyColor + ';">' + data[i].name + '</a></li>'
+		} else {
+			nav += '<li><a class="ui-disabled" href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:' + data[i].familyColor + ';">&#8239;</a></li>'
 		}
 	}
 	nav += '</ul></div>';
@@ -204,29 +215,29 @@ function appendNavbar(data) {
 	$("#first-ul li:first-child a").click();
 }
 
-function appendFamilyParamTab(data){
+function appendFamilyParamTab(data) {
 
 	$("#family-content").empty();
 	var tab = "";
 	for (var i = 0; i < data.length; i++) {
-		if(!data[i].empty){
-			tab += '<tr> <td>' + data[i].familyId + '</td>' 
-			tab += '<td>' + data[i].name + '</td>' 
-			tab += '<td><span class="color-view" style="background-color:' + data[i].familyColor + '"></span></td>' 
-			tab += '<td style="display:none;">'  + data[i].familyColor +  '</td>' 
-			tab += '<td>' + data[i].pichet + '</td>' 
+		if (!data[i].empty) {
+			tab += '<tr> <td>' + data[i].familyId + '</td>'
+			tab += '<td>' + data[i].name + '</td>'
+			tab += '<td><span class="color-view" style="background-color:' + data[i].familyColor + '"></span></td>'
+			tab += '<td style="display:none;">' + data[i].familyColor + '</td>'
+			tab += '<td>' + data[i].pichet + '</td>'
 			tab += '<td><button class="table-btn ui-btn-inline edit-family" data-transition="flip"><i class="fa fa-pencil"></i></button></td>'
 			tab += '<td><button class="table-btn ui-btn-inline delete-family"><i class="fa fa-trash-o"></i></button></td> </tr>'
 		}
 	}
 	$("#family-content").append(tab);
 
-	$(".delete-family").on("click", function(){
+	$(".delete-family").on("click", function() {
 		var familyIdDel = $(this).closest('td').prev().prev().prev().prev().prev().prev().text();
 		socket.emit('supprimerfamille', familyIdDel);
 	})
 
-	$(".edit-family").on("click", function(){
+	$(".edit-family").on("click", function() {
 		familyId = $(this).closest('td').prev().prev().prev().prev().prev().text();
 		var familyColor = $(this).closest('td').prev().prev().text();
 		var familyName = $(this).closest('td').prev().prev().prev().prev().text();
@@ -239,44 +250,46 @@ function appendFamilyParamTab(data){
 		$("#mycolor-set-family").css('background-color', familyColor);
 		$("#mycolor-set-family").attr("name", familyColor);
 		// $.mobile.changePage( "#set-family", { transition: "slidefade", changeHash: true });
-		$( ":mobile-pagecontainer" ).pagecontainer( "change", "#set-family");
+		$(":mobile-pagecontainer").pagecontainer("change", "#set-family");
 	});
 
 	// listener on family setting form
-	$( "#form-family-set" ).submit(function( event ) {
-		var newName = $('#name-set-family').val();
-		var newColor = $( "#mycolor-set-family" ).attr("name");
-		var newPichet = $( "#pichet-set" ).val();
-		socket.emit('modifierfamille', familyId, newName, newColor, newPichet);
-		$( ":mobile-pagecontainer" ).pagecontainer( "change", "#param-family");
-
+	$("#form-family-set").submit(function(event) {
 		event.preventDefault();
+		event.stopImmediatePropagation();
+
+		console.log("form submit")
+		var newName = $('#name-set-family').val();
+		var newColor = $("#mycolor-set-family").attr("name");
+		var newPichet = $("#pichet-set").val();
+		socket.emit('modifierfamille', familyId, newName, newColor, newPichet);
+		$(":mobile-pagecontainer").pagecontainer("change", "#param-family");
 	});
 }
 
-function appendProductParamTab(product){
+function appendProductParamTab(product) {
 
 	$('#product-content').empty();
 	var tab = "";
-	for(var i = 0 ; i < product.length ; i++){
-		if(!product[i].empty){
-			tab += '<tr><td>' + product[i].name + '</td>' 
+	for (var i = 0; i < product.length; i++) {
+		if (!product[i].empty) {
+			tab += '<tr><td>' + product[i].name + '</td>'
 			tab += '<td><span class="color-view" style="background-color:' + product[i].color + '"></span></td>'
-			tab += '<td style="display:none;">'+ product[i].color +'</td>'  //hidden column
-			tab += '<td style="display:none;">'+ product[i].id +'</td>'  //hidden column
+			tab += '<td style="display:none;">' + product[i].color + '</td>' //hidden column
+			tab += '<td style="display:none;">' + product[i].id + '</td>' //hidden column
 			tab += '<td><button class="table-btn edit-product" data-transition="flip"><i class="fa fa-pencil"></i></button></td>'
 			tab += '<td><button class="table-btn delete-product"><i class="fa fa-trash-o"></i></button></td> </tr>'
 		}
 	}
 	$("#product-content").append(tab);
 	// listener on delete product button
-	$(".delete-product").on("click", function(){
+	$(".delete-product").on("click", function() {
 		var productIdDel = $(this).closest('td').prev().prev().text();
 		socket.emit('supprimearticle', familyIdGlobal, productIdDel);
-		socket.emit('getproductonid',familyIdGlobal);
+		socket.emit('getproductonid', familyIdGlobal);
 	});
 	// listener on edit product button
-	$(".edit-product").on("click", function(){
+	$(".edit-product").on("click", function() {
 		productId = $(this).closest('td').prev().text();
 		var productColor = $(this).closest('td').prev().prev().text();
 		var productName = $(this).closest('td').prev().prev().prev().prev().text();
@@ -285,17 +298,21 @@ function appendProductParamTab(product){
 		// set color of color picker
 		$("#mycolor-set-product").css('background-color', productColor);
 		$("#mycolor-set-product").attr("name", productColor);
-		$.mobile.changePage( "#set-product", { transition: "slidefade", changeHash: true });
+		$.mobile.changePage("#set-product", {
+			transition: "slidefade",
+			changeHash: true
+		});
 	});
 
 	// listener on product setting form
-	$( "#form-product-set" ).submit(function( event ) {
-		var newName = $('#name-set-product').val();
-		var newColor = $( "#mycolor-set-product" ).attr("name");
-		socket.emit('modifierarticle', familyIdGlobal, productId, newName, newColor);
-		socket.emit('getproductonid',familyIdGlobal);
-		$.mobile.changePage( "#param-product", { transition: "slidefade", changeHash: true });
+	$("#form-product-set").submit(function(event) {
 		event.preventDefault();
+		event.stopImmediatePropagation();
+		var newName = $('#name-set-product').val();
+		var newColor = $("#mycolor-set-product").attr("name");
+		socket.emit('modifierarticle', familyIdGlobal, productId, newName, newColor);
+		socket.emit('getproductonid', familyIdGlobal);
+		$(":mobile-pagecontainer").pagecontainer("change", "#param-product");
 	});
 }
 
@@ -353,15 +370,15 @@ function printEtiquette(familyNumber, productId) {
 function showLoginError() {
 
 	$('#login-input')
-	.prop('type', 'text')
-	.css("color", "red")
-	.val('MOT DE PASSE NON VALIDE')
-	.fadeOut(2000, function() {
-		$(this)
-		.prop('type', 'password')
-		.val('')
-		.removeAttr("style");
-	});
+		.prop('type', 'text')
+		.css("color", "red")
+		.val('MOT DE PASSE NON VALIDE')
+		.fadeOut(2000, function() {
+			$(this)
+				.prop('type', 'password')
+				.val('')
+				.removeAttr("style");
+		});
 
 	$("#1, #2, #3, #4, #5, #6, #7, #8, #9, #0").on("click", function() {
 		$('#login-input').stop(true, true)
