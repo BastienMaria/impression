@@ -34,9 +34,13 @@
     <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" >
       <div class="ui-grid-a full-width-buttons">
         <div class="ui-block-a"><a href="#login-main" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-icon-user ui-btn-icon-left" data-position-to="window">SARAH</a></div>
-        <div class="ui-block-b"><a href="#functions" data-transition="slide" class="ui-btn ui-shadow ui-corner-all ui-icon-star ui-btn-icon-left">Fonctions</a></div>
+        <div class="ui-block-b"><a href="#functions" data-transition="slidefade" class="ui-btn ui-shadow ui-corner-all ui-icon-star ui-btn-icon-left">Fonctions</a></div>
       </div>
       <h6 id="copyright">&copy; 2016 TopBar</h6>
+    </div>
+    <!-- ################################### ERROR POPUP AJOUT ########################## -->
+    <div id="error-add-family" data-role="popup" data-theme="a" data-overlay-theme="b" data-dismissible="true" data-history="false">
+      <h1 style="text-align:center">AJOUT IMPOSSIBLE : nombre de familles maximal atteint</h1>
     </div>
   </div>
 
@@ -52,7 +56,7 @@
         <div id="user-collapsible" data-role="collapsible" class="functions-collapsible">
           <h3>Parametres utilisateur</h3>
           <ul data-role="listview">
-            <li><a href="#">Identifiant</a></li>
+            <li><a href="#" data-transition="slidefade">Identifiant</a></li>
           </ul>
         </div>
       </div>
@@ -60,8 +64,8 @@
         <div id="product-collapsible" data-role="collapsible" class="functions-collapsible">
           <h3>Parametres produits</h3>
           <ul data-role="listview">
-            <li><a href="#set-family">Famille</a></li>
-            <li><a href="#set-product">Article</a></li>
+            <li><a href="#param-family" id="btn-param-family" data-transition="slidefade">Famille</a></li>
+            <li><a href="#param-product" id="set-product-menu" data-transition="slidefade">Article</a></li>
           </ul>
         </div>
       </div>
@@ -69,8 +73,8 @@
         <div id="crea-collapsible" data-role="collapsible" class="functions-collapsible">
           <h3>Creation</h3>
           <ul data-role="listview">
-            <li><a href="#add-family">Ajout famille</a></li>
-            <li><a href="#add-product" id="add-art-menu">Ajout article</a></li>
+            <li><a href="#add-family" class="add-btn" data-transition="slidefade">Ajout famille</a></li>
+            <li><a href="#add-product" class="add-btn" id="add-product-menu" data-transition="slidefade">Ajout article</a></li>
           </ul>
         </div>
       </div>
@@ -86,10 +90,11 @@
   <div data-role="page" id="add-family" data-theme="a">
     <div data-role="header">
       <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+      <a id="home" href="#main-page" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home">Home</a>
       <h1>Ajout famille</h1>
     </div>
     <div data-role="content">
-      <form id="add-family">
+      <form id="form-family">
         <label for="textinput">Nom famille:</label>
         <input type="text" name="textinput" id="name" placeholder="" maxlength="15" required="true">
 
@@ -98,28 +103,28 @@
 
         <br>
         <label for="mycolor">Couleur d'onglet:</label>
-        <a href="#color-picker" id="mycolor" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">...</a>
+        <a href="#color-picker" id="mycolor-add-family" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">&#8239;</a>
 
         <br>
         <button type="submit" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
       </form>
     </div>
     <!-- /content -->
+
   </div>
-  <!-- ################################### CREATION ##################################### -->
-  <!-- ################################################################################## -->
-  <!-- ################################### ajout produit  ############################### -->
+  <!-- ################################### ajout article  ############################### -->
   <div data-role="page" id="add-product" data-theme="a">
     <div data-role="header">
       <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+      <a id="home" href="#main-page" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home">Home</a>
       <h1>Ajout article</h1>
     </div>
     <div data-role="content">
-      <form id="add-family">
+      <form id="form-product">
         <label for="family-choice">Choix famille:</label>
         <div class="ui-field-contain">
           <select id="family-choice" data-native-menu="false">
-            <option>Famille</option>
+            <option></option>
           </select>
         </div>
 
@@ -127,145 +132,119 @@
         <input type="text" name="textinput" id="name-art" placeholder="" maxlength="15" required="true">
 
         <br>
-        <label for="mycolor">Couleur d'onglet:</label>
-        <a href="#color-picker" id="mycolor" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">...</a>
+        <label for="mycolor">Couleur du bouton:</label>
+        <a href="#color-picker" id="mycolor-add-product" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">&#8239;</a>
 
         <br>
-        <button type="submit" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
+        <button type="submit" id="form-product-submit" class="ui-shadow ui-btn ui-corner-all">Ajouter</button>
       </form>
     </div>
     <!-- /content -->
   </div>   
   <!-- ################################### PARAMETRES ################################### -->
   <!-- ################################################################################## -->
-  <!-- ################################### modification famille ######################### -->
-  <div data-role="page" id="set-family" data-theme="a">
+  <!-- ################################### paramètres famille ######################### -->
+  <div data-role="page" id="param-family" data-theme="a">
     <div data-role="header">
       <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+      <a id="home" href="#main-page" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home">Home</a>
       <h1>Modification famille</h1>
     </div>
     <div data-role="content">
-      <table class="ui-body-d ui-shadow table-stripe ui-responsive"
-      data-column-btn-text="Columns to display..." data-column-btn-theme="b"
-      data-column-popup-theme="a" data-mode="columntoggle" data-role="table" id=
-      "table-custom-2">
-      <thead>
-        <tr class="ui-bar-d">
-          <th data-priority="2">Rank</th>
-          <th>Movie Title</th>
-          <th data-priority="3">Year</th>
-          <th data-priority="1"><abbr title="Rotten Tomato Rating">Rating</abbr></th>
-          <th data-priority="5">Reviews</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>1</th>
-          <td>
-            <a data-rel="external" href=
-            "http://en.wikipedia.org/wiki/Citizen_Kane">Citizen Kane</a>
-          </td>
-          <td>1941</td>
-          <td>100%</td>
-          <td>74</td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td>
-            <a data-rel="external" href=
-            "http://en.wikipedia.org/wiki/Casablanca_(film)">Casablanca</a>
-          </td>
-          <td>1942</td>
-          <td>97%</td>
-          <td>64</td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td>
-            <a data-rel="external" href=
-            "http://en.wikipedia.org/wiki/The_Godfather">The Godfather</a>
-          </td>
-          <td>1972</td>
-          <td>97%</td>
-          <td>87</td>
-        </tr>
-        <tr>
-          <th>4</th>
-          <td>
-            <a data-rel="external" href=
-            "http://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)">Gone with the
-            Wind</a>
-          </td>
-          <td>1939</td>
-          <td>96%</td>
-          <td>87</td>
-        </tr>
-        <tr>
-          <th>5</th>
-          <td>
-            <a data-rel="external" href=
-            "http://en.wikipedia.org/wiki/Lawrence_of_Arabia_(film)">Lawrence of
-            Arabia</a>
-          </td>
-          <td>1962</td>
-          <td>94%</td>
-          <td>87</td>
-        </tr>
-        <tr>
-          <th>6</th>
-          <td>
-            <a data-rel="external" href=
-            "http://en.wikipedia.org/wiki/Dr._Strangelove">Dr. Strangelove Or How I
-            Learned to Stop Worrying and Love the Bomb</a>
-          </td>
-          <td>1964</td>
-          <td>92%</td>
-          <td>74</td>
-        </tr>
-        <tr>
-          <th>7</th>
-          <td>
-            <a data-rel="external" href="http://en.wikipedia.org/wiki/The_Graduate">The
-              Graduate</a>
-            </td>
-            <td>1967</td>
-            <td>91%</td>
-            <td>122</td>
+      <table class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b" data-column-popup-theme="a" data-role="table" id="table-family">
+        <thead>
+          <tr class="ui-bar-d">
+            <th>#</th>
+            <th>Nom</th>
+            <th>Couleur</th>
+            <th style="display:none;">CouleurCode</th>
+            <th>Pichet</th>
+            <th></th>
+            <th></th>
           </tr>
-          <tr>
-            <th>8</th>
-            <td>
-              <a data-rel="external" href=
-              "http://en.wikipedia.org/wiki/The_Wizard_of_Oz_(1939_film)">The Wizard of
-              Oz</a>
-            </td>
-            <td>1939</td>
-            <td>90%</td>
-            <td>72</td>
-          </tr>
-          <tr>
-            <th>9</th>
-            <td>
-              <a data-rel="external" href=
-              "http://en.wikipedia.org/wiki/Singin%27_in_the_Rain">Singin' in the
-              Rain</a>
-            </td>
-            <td>1952</td>
-            <td>89%</td>
-            <td>85</td>
-          </tr>
-          <tr>
-            <th>10</th>
-            <td class="title">
-              <a data-rel="external" href=
-              "http://en.wikipedia.org/wiki/Inception">Inception</a>
-            </td>
-            <td>2010</td>
-            <td>84%</td>
-            <td>78</td>
-          </tr>
+        </thead>
+        <tbody id="family-content">
         </tbody>
       </table>
+    </div>
+    <!-- /content -->
+  </div>
+  <!-- ################################### modification famille ######################### -->
+  <div data-role="page" id="set-family" data-theme="a">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#param-family">Retour</a>
+      <a id="home" href="#main-page" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home">Home</a>
+      <h1>Modification famille</h1>
+    </div>
+    <div data-role="content" id="family-set-content">
+      <!-- <form id="form-family-set"> -->
+
+      <label for="textinput">Nom famille:</label>
+      <input type="text" name="textinput" id="name-set-family" placeholder="" maxlength="15" required="true">
+
+      <label for="pichet">Nombre de pichets:</label>
+      <input type="number" name="number" step="1" value="0" min="0" max="5" id="pichet-set">
+
+      <br>
+      <label for="mycolor-set-family">Couleur de l'onglet:</label>
+      <a href="#color-picker" id="mycolor-set-family" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">&#8239;</a>
+
+      <br>
+      <button type="button" class="ui-shadow ui-btn ui-corner-all" id="btn-set-family">Modifier</button>
+      <!-- </form> -->
+    </div>
+    <!-- /content -->
+  </div>    
+  <!-- ################################### paramètres article ######################### -->
+  <div data-role="page" id="param-product" data-theme="a">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#functions">Retour</a>
+      <a id="home" href="#main-page" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home">Home</a>
+      <h1>Modification articles</h1>
+    </div>
+    <div data-role="content">
+      <label for="family-choice-product-setting">Choix famille:</label>
+      <div class="ui-field-contain">
+        <select id="family-choice-product-setting" data-native-menu="false">
+        </select>
+      </div>
+      <table class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b" data-column-popup-theme="a" data-role="table" id="table-product-setting">
+        <thead>
+          <tr class="ui-bar-d">
+            <th>Nom</th>
+            <th>Couleur</th>
+            <th style="display:none;"></th>
+            <th style="display:none;"></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="product-content">
+        </tbody>
+      </table>
+    </div>
+    <!-- /content -->
+  </div>   
+  <!-- ################################### modification article ######################### -->
+  <div data-role="page" id="set-product" data-theme="a">
+    <div data-role="header">
+      <a id="back" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l" href="#param-product">Retour</a>
+      <a id="home" href="#main-page" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home">Home</a>
+      <h1>Modification article</h1>
+    </div>
+    <div data-role="content" id="product-set-content">
+      <form id="form-product-set">
+
+        <label for="textinput">Nom article:</label>
+        <input type="text" name="textinput" id="name-set-product" placeholder="coucou" maxlength="15" required="true">
+
+        <br>
+        <label for="mycolor-set-product">Couleur du bouton:</label>
+        <a href="#color-picker" id="mycolor-set-product" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow" style="background-color:white">&#8239;</a>
+
+        <br>
+        <button type="submit" class="ui-shadow ui-btn ui-corner-all" id="btn-set-product">Modifier</button>
+      </form>
     </div>
     <!-- /content -->
   </div> 
@@ -297,7 +276,6 @@
         <div class="ui-block-d"><input type="button" value="#bdc3c7" style="background-color:#bdc3c7" class="color-btn"></div>
         <div class="ui-block-e"><input type="button" value="#7f8c8d" style="background-color:#7f8c8d" class="color-btn"></div>
       </div>
-      <input type="button" value="..." id="color-selected" style="background-color:transparent">
     </div>
   </div> 
 </body>

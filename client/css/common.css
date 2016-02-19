@@ -508,8 +508,14 @@ td > a.btn-supprimer, #reinitialiser, #corriger, a.btn-annuler {
 		/*transform: scale(1.7);*/
 	}
 
-	#back {
+	/*header btn*/
+	#back, #home {
 		margin-top: 7px;
+	}
+	#back::after, #home::after{
+		transform: scale(1.7);
+		margin-left: 10px;
+		margin-right: 10px;
 	}
 
 	.ui-input-text input, .ui-input-search input {

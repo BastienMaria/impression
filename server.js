@@ -708,19 +708,22 @@ socket.on('ajoutfamille', function(name, color, pichet) {
     send();
 });
 
+socket.on('invoquereceive', function() {
+    send();
+});
 
 socket.on('envoifamille', function() {
- console.log("Je rentre dans la fonction")
- var tab = [];
- tab.push(famille1);
- tab.push(famille2);
- tab.push(famille3);
- tab.push(famille4);
- tab.push(famille5);
- tab.push(famille6);
- tab.push(famille7);
- tab.push(famille8);
- for (var i = 0; i < tab.length; i++) {
+   console.log("Je rentre dans la fonction")
+   var tab = [];
+   tab.push(famille1);
+   tab.push(famille2);
+   tab.push(famille3);
+   tab.push(famille4);
+   tab.push(famille5);
+   tab.push(famille6);
+   tab.push(famille7);
+   tab.push(famille8);
+   for (var i = 0; i < tab.length; i++) {
     console.log(tab[i]);
 };
 socket.emit('listefamille', tab);
@@ -999,6 +1002,60 @@ socket.on('modifierparametre', function(name, hours, minutes) {
         console.log('Configuration saved successfully.')
     });
     console.log("Nouvelle date : " + date1);
+});
+
+socket.on('getproductonid', function(famille) {
+    console.log('coucou ' + famille);
+    var tab = [];
+    
+    switch (famille) {
+        case 1:
+        for(var i = 0;  i < famille1.product.length; ++i){
+            tab.push(famille1.product[i]);
+        }
+        break;
+        case 2:
+        for(var i = 0;  i < famille2.product.length; ++i){
+            tab.push(famille2.product[i]);
+        }
+        break;
+        case 3:
+        for(var i = 0;  i < famille3.product.length; ++i){
+            tab.push(famille3.product[i]);
+        }
+        break;
+        case 4:
+        for(var i = 0;  i < famille4.product.length; ++i){
+            tab.push(famille4.product[i]);
+        }
+        break;
+        case 5:
+        for(var i = 0;  i < famille5.product.length; ++i){
+            tab.push(famille5.product[i]);
+        }
+        break;
+        case 6:
+        for(var i = 0;  i < famille6.product.length; ++i){
+            tab.push(famille6.product[i]);
+        }
+        break;
+        case 7:
+        for(var i = 0;  i < famille7.product.length; ++i){
+            tab.push(famille7.product[i]);
+        }
+        break;
+        case 8:
+        for(var i = 0;  i < famille8.product.length; ++i){
+            tab.push(famille8.product[i]);
+        }
+        break;
+    }
+    console.log(tab);
+    for(var i = 0 ; i < tab.length ; i++){
+        console.log(tab[i]);
+    }
+    socket.emit('receiveproductbyfamilyid', tab);
+
 });
 
 

@@ -1,31 +1,28 @@
 var socket = io.connect();
 var globalData;
-/*
-socket.emit('ajoutarticle', 1, "Chateau margaux", "1");
-socket.emit('ajoutarticle', 2, "Vins arbois", "2");
-socket.emit('ajoutarticle', 3, "Muscaret", "3");
-socket.emit('ajoutarticle', 4, "Magnum", "4");
-socket.emit('ajoutarticle', 5, "Edenvine", "5");
-socket.emit('ajoutarticle', 6, "Vodka absolute", "6");
-socket.emit('ajoutarticle', 7, "Limeone", "7");
-socket.emit('ajoutarticle', 8, "Chateau de Pampelone", "8");
-socket.emit('ajoututilisateur', "titi", "prout");
-socket.emit('ajoututilisateur', "Justin", "test");
-socket.emit('supprimerutilisateur', "toto");
-socket.emit('modifierutilisateur', "Justin", "nouveaumdp", "Justino");
-socket.emit('verifutilisateur', "Justin", "nouveaumdp");
-socket.emit('supprimerfamille', 8);
-*/
-
 
 // ######################## EVENTS ########################
 $(document).bind('mobileinit', function() {
 	$.mobile.pushStateEnabled = false;
 });
 
+// on functions menu load collapse all collapsible
 $(document).on("pageshow", "#functions", function() {
 	$("div[data-role='collapsible']").collapsible("collapse");
 });
+
+// on main page load refresh header + footer
+$(document).on("pagebeforeshow", "#main-page", function() {
+	$( "#head" ).toolbar( "refresh" );
+	$( "#footer" ).toolbar( "refresh" );
+});
+
+//reset form
+$(document).on("pagebeforeshow", "#add-product, #add-family", function() {
+	$('#form-family, #form-product').trigger("reset");
+	$("#form-product-submit").attr('disabled','disabled');
+});
+
 
 
 $(document).ready(function() {
@@ -33,8 +30,11 @@ $(document).ready(function() {
 	$( "#color-picker" ).enhanceWithin().popup();
 
 	$(".color-btn").on("click", function() {
-		$("#color-selected, #mycolor").css('background-color', this.value);
-		$("#color-selected").attr("value", this.value);
+		//get current page "family" or "product"
+		var pageId = $(':mobile-pagecontainer').pagecontainer( "getActivePage" )[0].id;
+		$("#mycolor-" + pageId).css('background-color', this.value);
+		$("#mycolor-" + pageId).attr("name", this.value);
+		$("#color-picker").popup("close");
 	});
 
 	//ferme les autres collapsible quand on clique sur 1 et focus dessus
@@ -45,30 +45,61 @@ $(document).ready(function() {
 		}, 'slow');
 	});
 
-	$( "#add-family" ).submit(function( event ) {
+	$( "#form-family" ).submit(function( event ) {
 		var familyName = $( "#name" ).val();
 		var pichet = $( "#pichet" ).val();
-		var color = $( "#color-selected" ).val();
-		console.log(familyName + '  ' + color + '   ' + pichet)
+		var color = $( "#mycolor-add-family" ).attr("name");
 		socket.emit('ajoutfamille', familyName, color, pichet);
-		$.mobile.changePage( "#main-page", { transition: "slideup", changeHash: true });
+		$('#main-nav').empty();
+		$.mobile.changePage( "#main-page", { transition: "slidefade", changeHash: true });
+		$("#mycolor-add-family").css('background-color', "white");
+		$("#mycolor-add-family").attr("name", "white");
 		event.preventDefault();
 	});	
 
-	$( "#add-product" ).submit(function( event ) {
+	$( "#form-product" ).submit(function( event ) {
 		var familyId = parseInt($( "#family-choice" ).val(), 10);
-		console.log("famille id   " + familyId)
 		var productName = $( "#name-art" ).val();
-		var color = $( "#color-selected" ).val();
-		socket.emit('ajoutarticle', 1, productName, color);
-		$.mobile.changePage( "#main-page", { transition: "slideup", changeHash: true });
+		var color = $( "#mycolor-add-product" ).attr("name");
+		socket.emit('ajoutarticle', familyId, productName, color);
+		$('#main-nav').empty();
+		$.mobile.changePage( "#main-page", { transition: "slidefade", changeHash: true });
+		$("#mycolor-add-product").css('background-color', "white");
+		$("#mycolor-add-product").attr("name", "white");
 		event.preventDefault();
 	});
 
-	$("#add-art-menu").on("click", function(){
+	$("#add-product-menu, #set-product-menu").on("click", function(){
+		$('#product-content').empty();
 		socket.emit('envoifamille');
 	});
+
+	$("#btn-param-family").on("click", function(){
+		socket.emit('invoquereceive');
+	});
+
+	$("#family-choice").change(function() {
+		// enable submit btn
+		$('#form-product-submit').removeAttr('disabled');
+	});
+
+	// listener on family select (product settings)
+	$("#family-choice-product-setting").change(function() {
+		// clean table
+		$('#product-content').empty();
+		// get id of selected option as global
+		familyIdGlobal = $(this).val();
+		familyIdGlobal = parseInt(familyIdGlobal, 10);
+		socket.emit('getproductonid',familyIdGlobal);
+	});
+
 });
+
+// receive products list on family id
+socket.on('receiveproductbyfamilyid', function(product) {
+	appendProductParamTab(product)
+});
+
 
 $(document).on("pageremove", function(event) {
 	$('#articles').DataTable().destroy(false);
@@ -88,27 +119,56 @@ $(window).on('load', function() {
 	$( "#head" ).toolbar( "refresh" );
 });
 
+socket.on('erreurajoutfamille', function(data) {
+	
+	$('#main-nav').empty();
+	setTimeout(function(){ $('#error-add-family').popup( "open"); }, 500);
+	setTimeout(function(){ $('#error-add-family').popup( "close"); }, 1300);
+
+});
+
 socket.on('receive', function(data) {
-	globalData = data;
-	var navbar = [];
-	for (var i = 0; i < data.length; i++) {
-		var obj = {
-			"familyId": data[i].id,
-			"name": data[i].name,
-			"family_color": data[i].color
-		};
-		navbar.push(obj)
+	if ($('#main-nav').length){
+		$('#main-nav').remove();
 	}
-	appendNavbar(navbar);
+	// $('#main-nav').empty();
+	globalData = data;
+
+	htmlData = [];
+	for (var i = 0; i < globalData.length; i++) {
+		var obj = {
+			"familyId": globalData[i].id,
+			"name": globalData[i].name,
+			"familyColor": globalData[i].color,
+			"pichet": globalData[i].pichets,
+			"empty": globalData[i].libre
+		};
+		htmlData.push(obj)
+	}
+	htmlData.sort(function (a, b) {
+		if (a.empty)
+			return 1;
+		if (a.empty == false)
+			return -1;
+		return 0;
+	});
+
+	appendNavbar(htmlData);
+	appendFamilyParamTab(htmlData)
 });
 
 socket.on('listefamille', function(data) {
-	for (var i = 0; i < data.length; i++) {
-		$("#family-choice").append($('<option>', {value:data[i].id, text:data[i].name}));
-		$("#family-choice").selectmenu('refresh');
-	};
-});
+	$("#family-choice, #family-choice-product-setting").empty();
+	$("#family-choice, #family-choice-product-setting").append($('<option>'));
 
+	for (var i = 0; i < data.length; i++) {
+		if(!data[i].libre){
+			$("#family-choice, #family-choice-product-setting").append($('<option>', {value:data[i].id, text:data[i].name}));
+		}
+	};
+	$("#family-choice-product-setting").selectmenu().selectmenu("refresh", true);
+	$("#family-choice, #family-choice-product-setting").selectmenu("refresh", true);
+});
 
 // ######################## FUNCTIONS ########################
 
@@ -117,11 +177,21 @@ function appendNavbar(data) {
 
 	var nav = '<div data-role="navbar" id="main-nav"><ul id="first-ul">'
 	for (var i = 0; i < 4; i++) {
-		nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].family_color +';">' + data[i].name + '</a></li>'
+		if(!data[i].empty){
+			nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].familyColor +';">' + data[i].name + '</a></li>'
+		}
+		else {
+			nav += '<li><a class="ui-disabled" href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].familyColor +';">&#8239;</a></li>'
+		}
 	}
 	nav += '</ul><ul>'
 	for (var i = 4; i < data.length; i++) {
-		nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].family_color +';">' + data[i].name + '</a></li>'
+		if(!data[i].empty){
+			nav += '<li><a href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].familyColor +';">' + data[i].name + '</a></li>'
+		}
+		else{
+			nav += '<li><a class="ui-disabled" href="#" class="nav-link" id="' + data[i].familyId + '" style="background-color:'+ data[i].familyColor +';">&#8239;</a></li>'
+		}
 	}
 	nav += '</ul></div>';
 	$("#head").append(nav);
@@ -132,6 +202,101 @@ function appendNavbar(data) {
 	});
 
 	$("#first-ul li:first-child a").click();
+}
+
+function appendFamilyParamTab(data){
+
+	$("#family-content").empty();
+	var tab = "";
+	for (var i = 0; i < data.length; i++) {
+		if(!data[i].empty){
+			tab += '<tr> <td>' + data[i].familyId + '</td>' 
+			tab += '<td>' + data[i].name + '</td>' 
+			tab += '<td><span class="color-view" style="background-color:' + data[i].familyColor + '"></span></td>' 
+			tab += '<td style="display:none;">'  + data[i].familyColor +  '</td>' 
+			tab += '<td>' + data[i].pichet + '</td>' 
+			tab += '<td><button class="table-btn ui-btn-inline edit-family" data-transition="flip"><i class="fa fa-pencil"></i></button></td>'
+			tab += '<td><button class="table-btn ui-btn-inline delete-family"><i class="fa fa-trash-o"></i></button></td> </tr>'
+		}
+	}
+	$("#family-content").append(tab);
+
+	$(".delete-family").on("click", function(){
+		var familyIdDel = $(this).closest('td').prev().prev().prev().prev().prev().prev().text();
+		socket.emit('supprimerfamille', familyIdDel);
+	})
+
+	$(".edit-family").on("click", function(){
+		familyId = $(this).closest('td').prev().prev().prev().prev().prev().text();
+		var familyColor = $(this).closest('td').prev().prev().text();
+		var familyName = $(this).closest('td').prev().prev().prev().prev().text();
+		var familyPichet = $(this).closest('td').prev().text();
+
+		// set input with family name
+		$('#name-set-family').val(familyName);
+		$('#pichet-set').val(familyPichet);
+		// set color of color picker
+		$("#mycolor-set-family").css('background-color', familyColor);
+		$("#mycolor-set-family").attr("name", familyColor);
+		// $.mobile.changePage( "#set-family", { transition: "slidefade", changeHash: true });
+		$( ":mobile-pagecontainer" ).pagecontainer( "change", "#set-family");
+	});
+
+	// listener on family setting form
+	$( "#form-family-set" ).submit(function( event ) {
+		var newName = $('#name-set-family').val();
+		var newColor = $( "#mycolor-set-family" ).attr("name");
+		var newPichet = $( "#pichet-set" ).val();
+		socket.emit('modifierfamille', familyId, newName, newColor, newPichet);
+		$( ":mobile-pagecontainer" ).pagecontainer( "change", "#param-family");
+
+		event.preventDefault();
+	});
+}
+
+function appendProductParamTab(product){
+
+	$('#product-content').empty();
+	var tab = "";
+	for(var i = 0 ; i < product.length ; i++){
+		if(!product[i].empty){
+			tab += '<tr><td>' + product[i].name + '</td>' 
+			tab += '<td><span class="color-view" style="background-color:' + product[i].color + '"></span></td>'
+			tab += '<td style="display:none;">'+ product[i].color +'</td>'  //hidden column
+			tab += '<td style="display:none;">'+ product[i].id +'</td>'  //hidden column
+			tab += '<td><button class="table-btn edit-product" data-transition="flip"><i class="fa fa-pencil"></i></button></td>'
+			tab += '<td><button class="table-btn delete-product"><i class="fa fa-trash-o"></i></button></td> </tr>'
+		}
+	}
+	$("#product-content").append(tab);
+	// listener on delete product button
+	$(".delete-product").on("click", function(){
+		var productIdDel = $(this).closest('td').prev().prev().text();
+		socket.emit('supprimearticle', familyIdGlobal, productIdDel);
+		socket.emit('getproductonid',familyIdGlobal);
+	});
+	// listener on edit product button
+	$(".edit-product").on("click", function(){
+		productId = $(this).closest('td').prev().text();
+		var productColor = $(this).closest('td').prev().prev().text();
+		var productName = $(this).closest('td').prev().prev().prev().prev().text();
+		// set input with product name
+		$('#name-set-product').val(productName);
+		// set color of color picker
+		$("#mycolor-set-product").css('background-color', productColor);
+		$("#mycolor-set-product").attr("name", productColor);
+		$.mobile.changePage( "#set-product", { transition: "slidefade", changeHash: true });
+	});
+
+	// listener on product setting form
+	$( "#form-product-set" ).submit(function( event ) {
+		var newName = $('#name-set-product').val();
+		var newColor = $( "#mycolor-set-product" ).attr("name");
+		socket.emit('modifierarticle', familyIdGlobal, productId, newName, newColor);
+		socket.emit('getproductonid',familyIdGlobal);
+		$.mobile.changePage( "#param-product", { transition: "slidefade", changeHash: true });
+		event.preventDefault();
+	});
 }
 
 
@@ -168,7 +333,7 @@ function appendDashboard(familyId) {
 			if (products[i].name == 'fake') {
 				dashboard += '<div style="visibility:hidden" class="ui-block-' + blockClassType[i] + '"><a href="#" class="ui-btn ui-shadow ui-corner-all custom"></a></div>'
 			} else {
-				dashboard += '<div class="ui-block-' + blockClassType[i] + '"><a href="#" id="' + products[i].id + '" class="pdt-btn ui-btn ui-shadow ui-corner-all custom">' + products[i].name + '</a></div>'
+				dashboard += '<div class="ui-block-' + blockClassType[i] + '"><a href="#" id="' + products[i].id + '" class="pdt-btn ui-btn ui-shadow ui-corner-all custom" style="background-color:' + products[i].color + '">' + products[i].name + '</a></div>'
 			}
 		}
 		dashboard += ' </div>';

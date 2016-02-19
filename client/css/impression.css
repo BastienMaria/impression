@@ -5,6 +5,20 @@
 /* ############################################################################# */
 /* ############################################################################# */
 /* ############################################################################# */
+.color-view {
+	display: inline-block;
+	width: 100px;
+	height: 72px;
+	cursor: pointer;
+}
+
+td, td > * {
+	vertical-align: middle !important;
+}
+
+.ui-btn-active {
+	box-shadow: -1px 2px 10px 3px rgba(0, 0, 0, 0.3) inset !important;
+}
 
 @media all and (min-width: 500px) {
 
@@ -27,24 +41,16 @@
 
 	}
 
-	/*TEST*/
-	a.custom {
-		background: rgba(222,130,122,1);
-		background: -moz-radial-gradient(center, ellipse cover, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
-		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(222,130,122,1)), color-stop(37%, rgba(222,130,122,1)), color-stop(100%, rgba(219,103,90,1)));
-		background: -webkit-radial-gradient(center, ellipse cover, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
-		background: -o-radial-gradient(center, ellipse cover, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
-		background: -ms-radial-gradient(center, ellipse cover, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
-		background: radial-gradient(ellipse at center, rgba(222,130,122,1) 0%, rgba(222,130,122,1) 37%, rgba(219,103,90,1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#de827a', endColorstr='#db675a', GradientType=1 );
+	button.table-btn{
+		font-size: 200%;
+		margin-right: inherit;
 	}
 
 	/*COLOR PICKER*/
 
-	#color-pick-zone > div > div > input, #mycolor{
+	#color-pick-zone > div > div > input, #mycolor, #color-view{
 		opacity: initial !important;
 	}
-
 }
 
 
